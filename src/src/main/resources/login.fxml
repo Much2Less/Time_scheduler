@@ -4,32 +4,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Login.LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
    <left>
-      <AnchorPane prefHeight="407.0" prefWidth="228.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fitHeight="255.0" fitWidth="213.0" layoutX="8.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../../../Desktop/images/schedule-clipart-meeting-schedule-4.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
+      <AnchorPane prefHeight="407.0" prefWidth="228.0" BorderPane.alignment="CENTER" />
    </left>
    <right>
       <AnchorPane prefHeight="400.0" prefWidth="520.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="75.0" fitWidth="114.0" layoutX="156.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../../../Desktop/images/locked.png" />
-               </image>
-            </ImageView>
             <Label layoutX="33.0" layoutY="116.0" text="Username">
                <font>
                   <Font size="13.0" />
@@ -43,7 +28,7 @@
             </Label>
             <PasswordField layoutX="128.0" layoutY="159.0" prefHeight="26.0" prefWidth="173.0" promptText="Password" />
             <Button fx:id="btnLogin" layoutX="39.0" layoutY="254.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="293.0" text="Login" />
-            <Button fx:id="btnregister" layoutX="39.0" layoutY="323.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="293.0" text="Register" />
+            <Button fx:id="btnregister" layoutX="39.0" layoutY="323.0" mnemonicParsing="false" onAction="#switchToRegister" prefHeight="50.0" prefWidth="293.0" text="Register" />
             <TextField alignment="CENTER" layoutX="118.0" layoutY="200.0" prefHeight="26.0" prefWidth="200.0" text="Invalid Input!! Please try again." />
          </children>
       </AnchorPane>

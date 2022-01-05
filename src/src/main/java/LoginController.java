@@ -1,10 +1,17 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class StartScreen extends Application {
+import java.io.IOException;
+
+public class LoginController extends Application {
+
+	private Stage stage;
+	private Scene scene;
+	private Parent root;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -24,4 +31,11 @@ public class StartScreen extends Application {
 		}
 	}
 
+	public void switchToRegister(javafx.event.ActionEvent actionEvent) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("register.fxml"));
+		stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
 }
