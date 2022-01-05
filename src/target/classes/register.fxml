@@ -45,15 +45,15 @@
          <children>
             <AnchorPane layoutX="43.0" layoutY="60.0" prefHeight="173.0" prefWidth="160.0">
                <children>
-                  <TextField promptText="Username" />
-                  <TextField layoutY="48.0" promptText="E-Mail" />
-                  <PasswordField layoutY="100.0" promptText="Password" />
+                  <TextField fx:id="usernameRegister" promptText="Username" />
+                  <TextField fx:id="emailRegister" layoutY="48.0" promptText="E-Mail" />
+                  <PasswordField fx:id="passwordRegister" layoutY="100.0" promptText="Password" />
                </children>
             </AnchorPane>
             <ButtonBar layoutX="23.0" layoutY="347.0" prefHeight="40.0" prefWidth="190.0">
               <buttons>
                 <Button mnemonicParsing="false" onAction="#switchToLogin" text="Cancel" />
-                  <Button mnemonicParsing="false" text="Register" />
+                  <Button mnemonicParsing="false" onAction="#registerUser" text="Register" />
               </buttons>
             </ButtonBar>
          </children>
