@@ -35,8 +35,16 @@ public class SceneController  implements Initializable {
         stage.show();
     }
 
+
     public void switchToRegister(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("register.fxml"));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void switchToCalender(javafx.event.ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("calender.fxml"));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
