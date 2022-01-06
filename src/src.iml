@@ -9,16 +9,16 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.27" level="project" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.11.4" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:17" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:linux:17" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:17" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:17" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:linux:17" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:win:17" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:17" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:linux:17" level="project" />
-    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:17" level="project" />
   </component>
 </module>
