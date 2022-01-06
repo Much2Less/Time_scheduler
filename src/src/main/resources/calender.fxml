@@ -1,212 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefWidth="851.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calenderController">
+<AnchorPane prefHeight="642.0" prefWidth="903.0" style="-fx-border-color: #A865C9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calenderController">
    <children>
-      <Pane layoutY="-2.0" prefHeight="697.0" prefWidth="330.0" style="-fx-background-color: #1B6CD7;" />
-      <Label layoutX="442.0" layoutY="14.0" prefHeight="17.0" prefWidth="280.0" text="Time Schueduler" textAlignment="CENTER">
+      <Pane layoutY="-2.0" prefHeight="697.0" prefWidth="305.0" style="-fx-background-color: #A865C9; -fx-border-color: #A865C9;" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="499.0" layoutY="14.0" prefHeight="17.0" prefWidth="280.0" text="Time Schueduler" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <DatePicker layoutX="369.0" layoutY="103.0" prefHeight="35.0" prefWidth="330.0" />
-      <Label layoutX="369.0" layoutY="76.0" prefHeight="17.0" prefWidth="280.0" text="Select a date for your appointment" textAlignment="CENTER">
+      <DatePicker layoutX="394.0" layoutY="177.0" prefHeight="35.0" prefWidth="330.0" />
+      <Label layoutX="394.0" layoutY="151.0" prefHeight="17.0" prefWidth="280.0" text="Select a date for your appointment" textAlignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="383.0" layoutY="166.0" prefHeight="17.0" prefWidth="280.0" text="Select time for your appointment" textAlignment="CENTER">
+      <Label layoutX="394.0" layoutY="222.0" prefHeight="17.0" prefWidth="280.0" text="Select time for your appointment" textAlignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Pane layoutX="377.0" layoutY="200.0" prefHeight="78.0" prefWidth="182.0" style="-fx-background-color: #BDBDBD;">
+      <Pane layoutX="400.0" layoutY="248.0" prefHeight="78.0" prefWidth="121.0" style="-fx-background-color: #BDBDBD;">
          <children>
-            <Label layoutX="76.0" layoutY="4.0" text="Hour">
+            <Label layoutX="45.0" layoutY="4.0" text="Hour">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="13.0" layoutY="39.0" prefHeight="26.0" prefWidth="156.0" />
+            <TextField alignment="CENTER" layoutX="10.0" layoutY="24.0" prefHeight="40.0" prefWidth="100.0" promptText="00" style="-fx-background-color: #808080;">
+               <font>
+                  <Font size="25.0" />
+               </font></TextField>
          </children>
       </Pane>
-      <Pane layoutX="615.0" layoutY="200.0" prefHeight="78.0" prefWidth="182.0" style="-fx-background-color: #BDBDBD;">
+      <Pane layoutX="594.0" layoutY="248.0" prefHeight="78.0" prefWidth="121.0" style="-fx-background-color: #BDBDBD;">
          <children>
-            <Label layoutX="66.0" layoutY="4.0" text="Minutes">
+            <Label layoutX="36.0" layoutY="4.0" text="Minutes">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField layoutY="39.0" prefHeight="26.0" prefWidth="156.0" />
-         </children>
-      </Pane>
-      <Pane layoutX="383.0" layoutY="326.0" prefHeight="49.0" prefWidth="85.0">
-         <children>
-            <Pane prefHeight="49.0" prefWidth="85.0" style="-fx-background-color: #BDBDBD;">
-               <children>
-                  <Label layoutX="27.0" layoutY="15.0" text="7AM" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-         </children>
-      </Pane>
-      <Pane layoutX="497.0" layoutY="326.0" prefHeight="49.0" prefWidth="85.0" style="-fx-background-color: #BDBDBD;">
-         <children>
-            <Label layoutX="27.0" layoutY="15.0" text="8AM" textAlignment="CENTER">
+            <TextField alignment="CENTER" layoutX="10.0" layoutY="24.0" prefHeight="40.0" prefWidth="100.0" promptText="00" style="-fx-background-color: #808080;">
                <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
+                  <Font size="25.0" />
+               </font></TextField>
          </children>
       </Pane>
-      <Pane layoutX="615.0" layoutY="326.0" prefHeight="49.0" prefWidth="85.0" style="-fx-background-color: #BDBDBD;">
-         <children>
-            <Label layoutX="27.0" layoutY="15.0" text="9AM" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <Pane layoutX="516.0" layoutY="336.0" prefHeight="49.0" prefWidth="85.0" style="-fx-background-color: #BDBDBD;">
-               <children>
-                  <Label layoutX="29.0" layoutY="16.0" text="7AM">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-         </children>
-      </Pane>
-      <Pane layoutX="730.0" layoutY="326.0" prefHeight="49.0" prefWidth="85.0" style="-fx-background-color: #BDBDBD;">
-         <children>
-            <Label layoutX="29.0" layoutY="16.0" text="10AM" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Pane layoutX="383.0" layoutY="410.0" prefHeight="49.0" prefWidth="85.0" style="-fx-background-color: #BDBDBD;">
-         <children>
-            <Label layoutX="29.0" layoutY="16.0" text="11AM" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Pane layoutX="497.0" layoutY="410.0" prefHeight="49.0" prefWidth="85.0" style="-fx-background-color: #BDBDBD;">
-         <children>
-            <Label layoutX="29.0" layoutY="16.0" text="12PM" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Pane layoutX="615.0" layoutY="410.0" prefHeight="49.0" prefWidth="85.0" style="-fx-background-color: #BDBDBD;">
-         <children>
-            <Label layoutX="29.0" layoutY="16.0" text="13PM" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Pane layoutX="730.0" layoutY="410.0" prefHeight="49.0" prefWidth="85.0" style="-fx-background-color: #BDBDBD;">
-         <children>
-            <Label layoutX="29.0" layoutY="16.0" text="14PM" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Pane layoutX="383.0" layoutY="490.0" prefHeight="49.0" prefWidth="85.0" style="-fx-background-color: #BDBDBD;">
-         <children>
-            <Label layoutX="29.0" layoutY="16.0" text="15PM" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Pane layoutX="497.0" layoutY="490.0" prefHeight="49.0" prefWidth="85.0" style="-fx-background-color: #BDBDBD;">
-         <children>
-            <Label layoutX="29.0" layoutY="16.0" text="16PM" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Pane layoutX="615.0" layoutY="490.0" prefHeight="49.0" prefWidth="85.0" style="-fx-background-color: #BDBDBD;">
-         <children>
-            <Label layoutX="29.0" layoutY="16.0" text="17PM" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Pane layoutX="730.0" layoutY="490.0" prefHeight="49.0" prefWidth="85.0" style="-fx-background-color: #BDBDBD;">
-         <children>
-            <Label layoutX="29.0" layoutY="16.0" text="18PM" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Pane layoutX="383.0" layoutY="561.0" prefHeight="49.0" prefWidth="85.0" style="-fx-background-color: #BDBDBD;">
-         <children>
-            <Label layoutX="29.0" layoutY="16.0" text="19PM" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Pane layoutX="497.0" layoutY="561.0" prefHeight="49.0" prefWidth="85.0" style="-fx-background-color: #BDBDBD;">
-         <children>
-            <Label layoutX="29.0" layoutY="16.0" text="20PM" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Pane layoutX="615.0" layoutY="561.0" prefHeight="49.0" prefWidth="85.0" style="-fx-background-color: #BDBDBD;">
-         <children>
-            <Label layoutX="29.0" layoutY="16.0" text="21PM" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Pane layoutX="730.0" layoutY="561.0" prefHeight="49.0" prefWidth="85.0" style="-fx-background-color: #BDBDBD;">
-         <children>
-            <Label layoutX="29.0" layoutY="16.0" text="22PM" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Separator layoutX="377.0" layoutY="623.0" prefHeight="0.0" prefWidth="524.0" />
+      <Separator layoutX="396.0" layoutY="626.0" prefHeight="0.0" prefWidth="505.0" />
       <Button fx:id="cancleButton" layoutX="377.0" layoutY="639.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="49.0" prefWidth="162.0" style="-fx-background-radius: 5em; -fx-background-color: #8B0000;" text="Cancle" />
       <Button layoutX="645.0" layoutY="639.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="182.0" style="-fx-background-color: #1B6CD7; -fx-background-radius: 5em;" text="Creat Appointment" />
+      <Label layoutX="394.0" layoutY="92.0" prefHeight="17.0" prefWidth="280.0" text="Name of event" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="394.0" layoutY="112.0" prefHeight="26.0" prefWidth="305.0" />
+      <Label layoutX="394.0" layoutY="436.0" prefHeight="17.0" prefWidth="280.0" text="Location of event" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="394.0" layoutY="337.0" prefHeight="17.0" prefWidth="280.0" text="Duration of event" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField alignment="CENTER" layoutX="394.0" layoutY="359.0" prefHeight="40.0" prefWidth="100.0" promptText="00" style="-fx-background-color: #808080;">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </TextField>
+      <TextField alignment="CENTER" layoutX="518.0" layoutY="359.0" prefHeight="40.0" prefWidth="100.0" promptText="00" style="-fx-background-color: #808080;">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </TextField>
+      <Label layoutX="429.0" layoutY="411.0" text="Hour">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="544.0" layoutY="411.0" text="Minutes">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="394.0" layoutY="456.0" prefHeight="26.0" prefWidth="305.0" />
+      <Label layoutX="394.0" layoutY="497.0" prefHeight="17.0" prefWidth="280.0" text="Participants" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="394.0" layoutY="548.0" prefHeight="17.0" prefWidth="280.0" text="Priority" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <CheckBox layoutX="393.0" layoutY="583.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="77.0" style="-fx-background-color: #FF0000;" text="High" />
+      <CheckBox layoutX="531.0" layoutY="583.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="91.0" style="-fx-background-color: #FFFF00;" text="Medium" />
+      <CheckBox layoutX="671.0" layoutY="583.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="67.0" style="-fx-background-color: #4F7942;" text="Low" />
+      <ListView layoutX="393.0" layoutY="522.0" prefHeight="26.0" prefWidth="91.0" />
    </children>
 </AnchorPane>
