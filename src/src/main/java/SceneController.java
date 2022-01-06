@@ -54,4 +54,7 @@ public class SceneController  implements Initializable {
         lockedImageview.setImage(lockImage);
 
     }
+    public void btnLogin(ActionEvent actionEvent)  {
+        loginMessageLabel.setText("Connecting");
+    }
 }
