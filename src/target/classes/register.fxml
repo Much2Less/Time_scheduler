@@ -57,7 +57,7 @@
                   <Button mnemonicParsing="false" onAction="#registerUser" text="Register" />
               </buttons>
             </ButtonBar>
-            <Label fx:id="errorBoxRegister" layoutX="41.0" layoutY="215.0" prefHeight="125.0" prefWidth="171.0" />
+            <Label layoutX="41.0" layoutY="215.0" prefHeight="125.0" prefWidth="171.0" />
          </children>
     </AnchorPane>
   </children>
