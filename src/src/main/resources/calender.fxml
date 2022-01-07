@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="642.0" prefWidth="903.0" style="-fx-border-color: #A865C9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calenderController">
+<AnchorPane prefHeight="642.0" prefWidth="903.0" style="-fx-border-color: #A865C9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CalenderController">
    <children>
       <Button layoutX="559.0" layoutY="663.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="182.0" style="-fx-background-color: #1B6CD7; -fx-background-radius: 5em;" text="Creat Appointment" />
       <CheckBox layoutX="605.0" layoutY="276.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="91.0" style="-fx-background-color: #FFFF00;" text="Medium" />
