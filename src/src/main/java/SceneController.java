@@ -1,3 +1,4 @@
+import com.sun.glass.ui.Menu;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,6 +31,7 @@ public class SceneController  implements Initializable {
     public void switchToLogin(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("SignUp");
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -38,6 +40,7 @@ public class SceneController  implements Initializable {
 
     public void switchToRegister(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("register.fxml"));
+        stage.setTitle("Register");
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
