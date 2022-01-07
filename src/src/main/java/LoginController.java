@@ -71,7 +71,7 @@ LoginController extends Application {
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				Parent root = load(Objects.requireNonNull(getClass().getResource("calender.fxml")));
+				Parent root = load(Objects.requireNonNull(getClass().getResource("optionmenu.fxml")));
 				stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
 				stage.setTitle("Welcome to Time Scheduler");
 				scene = new Scene(root);
