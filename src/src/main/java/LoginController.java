@@ -1,16 +1,17 @@
- import javafx.application.Application;
- import javafx.fxml.FXML;
- import javafx.fxml.FXMLLoader;
+import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
- import javafx.scene.control.TextField;
- import javafx.stage.Stage;
-import java.io.IOException;
- import java.security.NoSuchAlgorithmException;
- import java.sql.*;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
- import static javafx.fxml.FXMLLoader.load;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.*;
+import java.util.Objects;
+
+import static javafx.fxml.FXMLLoader.load;
 
 public class
 LoginController extends Application {
@@ -24,12 +25,8 @@ LoginController extends Application {
 	@FXML
 	private TextField passwordLogin;
 
-	private String username;
-	private String password;
-
 	private Stage stage;
 	private Scene scene;
-	private Parent root;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -37,10 +34,10 @@ LoginController extends Application {
 	}
 
 	@Override
-	public void start(Stage stage) throws Exception {
+	public void start(Stage stage) {
 		try {
-			Parent root = load(getClass().getClassLoader().getResource("login.fxml"));
-			Scene scene = new Scene(root);
+			Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("login.fxml")));
+			scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
 		}
@@ -50,21 +47,21 @@ LoginController extends Application {
 	}
 
 	public void switchToRegister(javafx.event.ActionEvent actionEvent) throws IOException {
-		Parent root = load(getClass().getResource("register.fxml"));
+		Parent root = load(Objects.requireNonNull(getClass().getResource("register.fxml")));
 		stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
 	}
 	public void switchToCalender(javafx.event.ActionEvent actionEvent) throws IOException, NoSuchAlgorithmException {
-		username = usernameLogin.getText();
-		password = passwordLogin.getText();
+		String username = usernameLogin.getText();
+		String password = passwordLogin.getText();
 
 		HashedPassword hashedPassword = new HashedPassword(password);
 		String hash = hashedPassword.getHashString();
 
 		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-			 PreparedStatement stmt = conn.prepareStatement(QUERY);
+			 PreparedStatement stmt = conn.prepareStatement(QUERY)
 		) {
 			stmt.setString(1, username);
 			stmt.setString(2, hash);
@@ -72,7 +69,7 @@ LoginController extends Application {
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				Parent root = load(getClass().getResource("calender.fxml"));
+				Parent root = load(Objects.requireNonNull(getClass().getResource("calender.fxml")));
 				stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
 				scene = new Scene(root);
 				stage.setScene(scene);

@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class calenderController {
+public class CalenderController {
     private Stage stage;
     private Scene scene;
 

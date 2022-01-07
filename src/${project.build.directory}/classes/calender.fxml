@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefWidth="851.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calenderController">
+<AnchorPane prefWidth="851.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CalenderController">
    <children>
       <Pane layoutY="-2.0" prefHeight="697.0" prefWidth="330.0" style="-fx-background-color: #1B6CD7;" />
       <Label layoutX="442.0" layoutY="14.0" prefHeight="17.0" prefWidth="280.0" text="Time Schueduler" textAlignment="CENTER">
