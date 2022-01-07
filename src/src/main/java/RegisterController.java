@@ -60,20 +60,8 @@ public class RegisterController {
         }
          */
 
-        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-        byte[] encodedHash = messageDigest.digest(password.getBytes(StandardCharsets.UTF_8));
-
-        StringBuilder hexString = new StringBuilder(2 * encodedHash.length);
-        for (int i = 0; i < encodedHash.length; i++) {
-             String hex = Integer.toHexString(0xff & encodedHash[i]);
-             if (hex.length() == 1) {
-                 hexString.append('0');
-             }
-             hexString.append(hex);
-        }
-
-        String hashed_password = hexString.toString();
-
+        HashedPassword hashedPassword = new HashedPassword(password);
+        String hash = hashedPassword.getHashString();
 
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -81,7 +69,7 @@ public class RegisterController {
         ) {
             stmt.setString(1, username);
             stmt.setString(2, email);
-            stmt.setString(3, hashed_password);
+            stmt.setString(3, hash);
 
             stmt.executeUpdate();
 
