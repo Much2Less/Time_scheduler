@@ -8,6 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,7 +48,7 @@ public class RegisterController {
         stage.show();
     }
 
-    public void registerUser(javafx.event.ActionEvent actionEvent) throws IOException, SQLException {
+    public void registerUser(javafx.event.ActionEvent actionEvent) throws IOException, SQLException, NoSuchAlgorithmException {
         username = usernameRegister.getText();
         email = emailRegister.getText();
         password = passwordRegister.getText();
@@ -57,7 +60,19 @@ public class RegisterController {
         }
          */
 
-        //TODO Password should be hashed
+        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+        byte[] encodedHash = messageDigest.digest(password.getBytes(StandardCharsets.UTF_8));
+
+        StringBuilder hexString = new StringBuilder(2 * encodedHash.length);
+        for (int i = 0; i < encodedHash.length; i++) {
+             String hex = Integer.toHexString(0xff & encodedHash[i]);
+             if (hex.length() == 1) {
+                 hexString.append('0');
+             }
+             hexString.append(hex);
+        }
+
+        String hashed_password = hexString.toString();
 
 
 
@@ -66,7 +81,7 @@ public class RegisterController {
         ) {
             stmt.setString(1, username);
             stmt.setString(2, email);
-            stmt.setString(3, password);
+            stmt.setString(3, hashed_password);
 
             stmt.executeUpdate();
 
