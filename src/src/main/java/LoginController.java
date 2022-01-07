@@ -16,8 +16,8 @@ import static javafx.fxml.FXMLLoader.load;
 public class
 LoginController extends Application {
 	static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-	static final String USER = "much2less";
-	static final String PASS = "1234qwer";
+	static final String USER = "root";
+	static final String PASS = "Prabin2468";
 	static final String QUERY = "SELECT username password FROM login WHERE username = ? AND password = ?";
 
 	@FXML
@@ -37,6 +37,7 @@ LoginController extends Application {
 	public void start(Stage stage) {
 		try {
 			Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("login.fxml")));
+			stage.setTitle("SignUp");
 			scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
@@ -49,6 +50,7 @@ LoginController extends Application {
 	public void switchToRegister(javafx.event.ActionEvent actionEvent) throws IOException {
 		Parent root = load(Objects.requireNonNull(getClass().getResource("register.fxml")));
 		stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+		stage.setTitle("Register");
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
@@ -71,6 +73,7 @@ LoginController extends Application {
 			if (rs.next()) {
 				Parent root = load(Objects.requireNonNull(getClass().getResource("calender.fxml")));
 				stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+				stage.setTitle("Welcome to Time Scheduler");
 				scene = new Scene(root);
 				stage.setScene(scene);
 				stage.show();

@@ -49,6 +49,7 @@ public class SceneController  implements Initializable {
     public void switchToCalender(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("calender.fxml"));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("Welcome to Time Scheduler");
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
