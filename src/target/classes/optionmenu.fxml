@@ -60,6 +60,6 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <Button fx:id="btnquit" layoutX="14.0" layoutY="352.0" mnemonicParsing="false" onAction="#switchToLogin" text="Quit" />
+      <Button fx:id="btnquit" layoutX="14.0" layoutY="352.0" mnemonicParsing="false" onAction="#switchToLogin" style="-fx-background-radius: 3em; -fx-background-color: #FF0000;" text="Quit" textFill="#fdfbfb" />
    </children>
 </AnchorPane>

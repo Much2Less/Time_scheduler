@@ -11,12 +11,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="642.0" prefWidth="903.0" style="-fx-border-color: #A865C9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CalenderController">
+<AnchorPane prefHeight="732.0" prefWidth="853.0" style="-fx-border-color: #A865C9; -fx-background-color: #A865C9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CalenderController">
    <children>
       <Button layoutX="559.0" layoutY="663.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="182.0" style="-fx-background-color: #1B6CD7; -fx-background-radius: 5em;" text="Creat Appointment" />
-      <CheckBox layoutX="605.0" layoutY="276.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="91.0" style="-fx-background-color: #FFFF00;" text="Medium" />
-      <CheckBox layoutX="764.0" layoutY="276.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="67.0" style="-fx-background-color: #4F7942;" text="Low" />
-      <AnchorPane layoutX="8.0" layoutY="46.0" prefHeight="665.0" prefWidth="423.0">
+      <CheckBox layoutX="576.0" layoutY="422.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="91.0" style="-fx-background-color: #FFFF00;" text="Medium" />
+      <CheckBox layoutX="708.0" layoutY="422.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="67.0" style="-fx-background-color: #4F7942;" text="Low" />
+      <AnchorPane layoutY="43.0" prefHeight="687.0" prefWidth="390.0">
          <children>
             <Label layoutX="35.0" layoutY="41.0" prefHeight="17.0" prefWidth="280.0" text="Name of event" textAlignment="CENTER">
                <font>
@@ -94,23 +94,23 @@
                </font>
             </Label>
             <TextField layoutX="29.0" layoutY="531.0" prefHeight="26.0" prefWidth="305.0" />
-            <Separator layoutX="384.0" orientation="VERTICAL" prefHeight="685.0" prefWidth="39.0" />
+            <Separator layoutX="392.0" layoutY="1.0" orientation="VERTICAL" prefHeight="685.0" prefWidth="6.0" style="-fx-background-color: #000000;" />
             <Button fx:id="cancleButton" layoutX="106.0" layoutY="622.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="49.0" prefWidth="162.0" style="-fx-background-radius: 5em; -fx-background-color: #8B0000;" text="Cancle" />
          </children>
       </AnchorPane>
-      <Button layoutX="582.0" layoutY="356.0" mnemonicParsing="false" text="Add reminder" />
-      <Label layoutX="452.0" layoutY="361.0" prefHeight="17.0" prefWidth="280.0" text="Reminder " textAlignment="CENTER">
+      <Button layoutX="456.0" layoutY="520.0" mnemonicParsing="false" text="Add reminder" />
+      <Label layoutX="452.0" layoutY="476.0" prefHeight="17.0" prefWidth="280.0" text="Reminder " textAlignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <ListView layoutX="442.0" layoutY="94.0" prefHeight="126.0" prefWidth="254.0" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="302.0" layoutY="14.0" prefHeight="17.0" prefWidth="280.0" text="Time Schueduler" textAlignment="CENTER">
+      <ListView layoutX="442.0" layoutY="94.0" prefHeight="287.0" prefWidth="305.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="302.0" layoutY="14.0" prefHeight="17.0" prefWidth="280.0" style="-fx-background-color: #FFFAFA;" text="Time Schueduler" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="452.0" layoutY="232.0" prefHeight="17.0" prefWidth="280.0" text="Priority" textAlignment="CENTER">
+      <Label layoutX="456.0" layoutY="387.0" prefHeight="17.0" prefWidth="280.0" text="Priority" textAlignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
@@ -120,6 +120,6 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <CheckBox layoutX="464.0" layoutY="276.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="77.0" style="-fx-background-color: #FF0000;" text="High" />
+      <CheckBox layoutX="456.0" layoutY="422.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="77.0" style="-fx-background-color: #FF0000;" text="High" />
    </children>
 </AnchorPane>
