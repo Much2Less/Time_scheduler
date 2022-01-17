@@ -27,9 +27,9 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Button fx:id="buttonCancel" layoutX="14.0" layoutY="23.0" mnemonicParsing="false" onAction="#switchToMainscreen" text="Cancel" />
-                  <Button fx:id="buttonEdit" layoutX="653.0" layoutY="23.0" mnemonicParsing="false" onAction="#editItem" text="Edit" />
-                  <Button fx:id="buttonDelet" layoutX="557.0" layoutY="23.0" mnemonicParsing="false" onAction="#deleteItem" text="Delete" />
+                  <Button fx:id="buttonCancel" layoutX="14.0" layoutY="23.0" mnemonicParsing="false" onAction="#switchToCalender" text="Cancel" />
+                  <Button fx:id="buttonEdit" layoutX="653.0" layoutY="23.0" mnemonicParsing="false"  text="Edit" />
+                  <Button fx:id="buttonDelet" layoutX="557.0" layoutY="23.0" mnemonicParsing="false"  text="Delete" />
                </children>
             </AnchorPane>
         </items>

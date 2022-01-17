@@ -37,25 +37,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="optionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="647.0" style="-fx-background-color: #A865C9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="optionController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="135.0" layoutY="14.0" prefHeight="17.0" prefWidth="280.0" text="Time Schueduler" textAlignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="184.0" layoutY="19.0" prefHeight="17.0" prefWidth="280.0" text="Time Schueduler" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="btnaddAppo" alignment="CENTER" layoutX="139.0" layoutY="95.0" mnemonicParsing="false" onAction="#switchToCalender" prefHeight="65.0" prefWidth="271.0" style="-fx-background-color: #7CFC00; -fx-background-radius: 5em;" text="Add Appointment">
+      <Button fx:id="btnaddAppo" alignment="CENTER" layoutX="188.0" layoutY="100.0" mnemonicParsing="false" onAction="#switchToCalender" prefHeight="65.0" prefWidth="271.0" style="-fx-background-color: #7CFC00; -fx-background-radius: 5em;" text="Add Appointment">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <Button fx:id="btneditAppo" layoutX="139.0" layoutY="200.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="271.0" style="-fx-background-color: #FFFF00; -fx-background-radius: 5em;" text="Edit Appointment">
+      <Button fx:id="btneditAppo" layoutX="188.0" layoutY="205.0" mnemonicParsing="false" onAction="#switchToEditDeleteScreen" prefHeight="65.0" prefWidth="271.0" style="-fx-background-color: #FFFF00; -fx-background-radius: 5em;" text="Edit Appointment">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <Button fx:id="btndeleteAppo" layoutX="139.0" layoutY="301.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="271.0" style="-fx-background-color: #c54245; -fx-background-radius: 5em;" text="Delete Appointment">
+      <Button fx:id="btndeleteAppo" layoutX="188.0" layoutY="306.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="271.0" style="-fx-background-color: #c54245; -fx-background-radius: 5em;" text="Delete Appointment">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>

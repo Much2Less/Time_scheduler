@@ -30,6 +30,14 @@ public class optionController {
         stage.setScene(scene);
         stage.show();
     }
+    public void switchToEditDeleteScreen(javafx.event.ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("EditDeleteScreen.fxml"));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("Edit or Delete your Meetings ");
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
 
     }
