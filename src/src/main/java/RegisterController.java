@@ -8,17 +8,17 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Objects;
+import java.sql.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegisterController {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "much2less";
-    static final String PASS = "1234qwer";
+    static final String USER = "root";
+    static final String PASS = "Prabin2468";
     static final String QUERY = "INSERT INTO login (username,email,password,admin) VALUES (?, ?, ?, 0)";
 
     @FXML
@@ -30,20 +30,29 @@ public class RegisterController {
     @FXML
     private Label errorBoxRegister;
 
+    private String username;
+    private String email;
+    private String password;
+
     private StringBuilder error = new StringBuilder();
 
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
     public void switchToLogin(javafx.event.ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
+        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("SignUp");
+        scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void registerUser(javafx.event.ActionEvent actionEvent) throws IOException, NoSuchAlgorithmException {
-        String username = usernameRegister.getText();
-        String email = emailRegister.getText();
-        String password = passwordRegister.getText();
+    public void registerUser(javafx.event.ActionEvent actionEvent) throws IOException, SQLException, NoSuchAlgorithmException {
+        username = usernameRegister.getText();
+        email = emailRegister.getText();
+        password = passwordRegister.getText();
 
         /*
         if(checkRegisterData(username, email, password)) {
@@ -57,7 +66,7 @@ public class RegisterController {
 
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement(QUERY)
+             PreparedStatement stmt = conn.prepareStatement(QUERY);
         ) {
             stmt.setString(1, username);
             stmt.setString(2, email);

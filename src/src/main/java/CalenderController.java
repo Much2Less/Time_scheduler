@@ -12,12 +12,14 @@ public class CalenderController {
 
 
     public void switchToLogin(javafx.event.ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("optionmenu.fxml"));
          stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("SignUp");
          scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
 
 
 }

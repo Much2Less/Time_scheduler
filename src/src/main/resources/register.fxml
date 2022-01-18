@@ -37,18 +37,20 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox prefHeight="385.0" prefWidth="262.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RegisterController">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="409.0" prefWidth="408.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="409.0" prefWidth="408.0" style="-fx-background-color: #A865C9;" VBox.vgrow="ALWAYS">
          <children>
             <AnchorPane layoutX="43.0" layoutY="60.0" prefHeight="145.0" prefWidth="171.0">
                <children>
-                  <TextField fx:id="usernameRegister" promptText="Username" />
-                  <TextField fx:id="emailRegister" layoutY="48.0" promptText="E-Mail" />
-                  <PasswordField fx:id="passwordRegister" layoutY="100.0" promptText="Password" />
+                  <TextField fx:id="usernameRegister" layoutY="24.0" promptText="Username" />
+                  <TextField fx:id="emailRegister" layoutY="73.0" promptText="E-Mail" />
+                  <PasswordField fx:id="passwordRegister" layoutY="118.0" promptText="Password" />
                </children>
             </AnchorPane>
             <ButtonBar layoutX="23.0" layoutY="347.0" prefHeight="40.0" prefWidth="190.0">
@@ -57,7 +59,12 @@
                   <Button mnemonicParsing="false" onAction="#registerUser" text="Register" />
               </buttons>
             </ButtonBar>
-            <Label layoutX="41.0" layoutY="215.0" prefHeight="125.0" prefWidth="171.0" />
+            <Label layoutX="43.0" layoutY="238.0" prefHeight="101.0" prefWidth="171.0" />
+            <ImageView fitHeight="68.0" fitWidth="91.0" layoutX="95.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/logo.png" />
+               </image>
+            </ImageView>
          </children>
     </AnchorPane>
   </children>
