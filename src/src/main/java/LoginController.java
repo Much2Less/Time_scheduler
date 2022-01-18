@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -16,9 +17,9 @@ import static javafx.fxml.FXMLLoader.load;
 public class
 LoginController extends Application {
 	static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-	static final String USER = "root";
-	static final String PASS = "Prabin2468";
-	static final String QUERY = "SELECT username password FROM login WHERE username = ? AND password = ?";
+	static final String USER = "much2less";
+	static final String PASS = "1234qwer";
+	static final String QUERY = "SELECT username, password, admin FROM login WHERE username = ? AND password = ?";
 
 	@FXML
 	private TextField usernameLogin;
@@ -29,7 +30,6 @@ LoginController extends Application {
 	private Scene scene;
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		launch(args);
 	}
 
@@ -71,12 +71,15 @@ LoginController extends Application {
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				Parent root = load(Objects.requireNonNull(getClass().getResource("optionmenu.fxml")));
-				stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+				if (rs.getInt(3) > 0) switchToAdmin(actionEvent);
+				else {
+					Parent root = load(Objects.requireNonNull(getClass().getResource("optionmenu.fxml")));
+					stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
 				stage.setTitle("Welcome to Time Scheduler");
-				scene = new Scene(root);
-				stage.setScene(scene);
-				stage.show();
+					scene = new Scene(root);
+					stage.setScene(scene);
+					stage.show();
+				}
 			}
 			else {
 				System.out.println("Not found!");
@@ -86,5 +89,14 @@ LoginController extends Application {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void switchToAdmin(ActionEvent actionEvent) throws IOException {
+		Parent root = load(Objects.requireNonNull(getClass().getResource("admin.fxml")));
+		stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+		AdminController.setup();
 	}
 }
