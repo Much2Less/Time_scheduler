@@ -87,4 +87,5 @@ LoginController extends Application {
 			e.printStackTrace();
 		}
 	}
+
 }
