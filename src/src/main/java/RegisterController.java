@@ -12,13 +12,14 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterController {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "root";
-    static final String PASS = "Prabin2468";
+    static final String USER = "much2less";
+    static final String PASS = "1234qwer";
     static final String QUERY = "INSERT INTO login (username,email,password,admin) VALUES (?, ?, ?, 0)";
 
     @FXML
@@ -41,7 +42,7 @@ public class RegisterController {
     private Parent root;
 
     public void switchToLogin(javafx.event.ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("SignUp");
         scene = new Scene(root);
@@ -49,7 +50,7 @@ public class RegisterController {
         stage.show();
     }
 
-    public void registerUser(javafx.event.ActionEvent actionEvent) throws IOException, SQLException, NoSuchAlgorithmException {
+    public void registerUser(javafx.event.ActionEvent actionEvent) throws IOException,  NoSuchAlgorithmException {
         username = usernameRegister.getText();
         email = emailRegister.getText();
         password = passwordRegister.getText();
@@ -66,7 +67,7 @@ public class RegisterController {
 
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement(QUERY);
+             PreparedStatement stmt = conn.prepareStatement(QUERY)
         ) {
             stmt.setString(1, username);
             stmt.setString(2, email);

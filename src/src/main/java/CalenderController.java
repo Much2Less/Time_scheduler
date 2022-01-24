@@ -1,6 +1,5 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -75,7 +74,7 @@ public class CalenderController {
             private Scene scene;
 
             public void switchToRegister(javafx.event.ActionEvent actionEvent) throws IOException {
-            Parent root = load(Objects.requireNonNull(getClass().getResource("optionmenu.fxml")));
+            Parent root = load(Objects.requireNonNull(getClass().getResource("optionMenu.fxml")));
             stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
             stage.setTitle("Welcome");
             scene = new Scene(root);
@@ -83,7 +82,7 @@ public class CalenderController {
             stage.show();
             }
 
-    public void creatAppointment(ActionEvent actionEvent) throws IOException, SQLException, NoSuchAlgorithmException {
+    public void creatAppointment(ActionEvent actionEvent) throws IOException, SQLException {
         eventNameAppointment = eventName.getText();
          LocalDate dateAppointment = date.getValue();
         hourAppointment = hour.getText();
@@ -96,7 +95,7 @@ public class CalenderController {
 
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement(QUERY);
+             PreparedStatement stmt = conn.prepareStatement(QUERY)
         ) {
             stmt.setString(1, eventNameAppointment);
             stmt.setString(2, String.valueOf(dateAppointment));

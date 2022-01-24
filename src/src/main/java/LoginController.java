@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -73,9 +74,9 @@ LoginController extends Application {
 			if (rs.next()) {
 				if (rs.getInt(3) > 0) switchToAdmin(actionEvent);
 				else {
-					Parent root = load(Objects.requireNonNull(getClass().getResource("optionmenu.fxml")));
+					Parent root = load(Objects.requireNonNull(getClass().getResource("optionMenu.fxml")));
 					stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-				stage.setTitle("Welcome to Time Scheduler");
+					stage.setTitle("Welcome to Time Scheduler");
 					scene = new Scene(root);
 					stage.setScene(scene);
 					stage.show();
@@ -92,11 +93,13 @@ LoginController extends Application {
 	}
 
 	public void switchToAdmin(ActionEvent actionEvent) throws IOException {
-		Parent root = load(Objects.requireNonNull(getClass().getResource("admin.fxml")));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("admin.fxml"));
+		Parent root = loader.load();
+		AdminController controller = loader.getController();
 		stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-		AdminController.setup();
+		AdminController.setup(loader);
 	}
 }

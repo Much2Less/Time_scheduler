@@ -1,6 +1,8 @@
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,21 +23,19 @@ public class AdminController {
     static final String PASS = "1234qwer";
     static final String QUERY = "SELECT * FROM login";
 
-    ArrayList<User> userArrayList;
-
     //List declarations
     @FXML
-    private static ListView<String> usernameList;
+    private ListView<Integer> idList;
     @FXML
-    private static ListView<String> emailList;
+    private ListView<String> usernameList;
     @FXML
-    private static ListView<String> passwordList;
+    private ListView<String> emailList;
     @FXML
-    private static ListView<Integer> adminList;
+    private ListView<String> passwordList;
     @FXML
-    private static ListView<Button> buttonList;
+    private ListView<Integer> adminList;
     @FXML
-    private static ListView<Integer> idList;
+    private ListView<Button> buttonList;
 
     //Button declarations
     @FXML
@@ -43,20 +43,21 @@ public class AdminController {
     @FXML
     private Button submitAdmin;
 
-    public static void setup() {
+    public static void setup(FXMLLoader loader) {
+        AdminController controller = loader.getController();
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement stmt = conn.prepareStatement(QUERY)
         ) {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                idList.getItems().add(rs.getInt(1));
-                usernameList.getItems().add(rs.getString(2));
-                emailList.getItems().add(rs.getString(3));
-                passwordList.getItems().add(rs.getString(4));
-                adminList.getItems().add(rs.getInt(5));
-
+                controller.idList.getItems().add(rs.getInt(1));
+                controller.usernameList.getItems().add(rs.getString(2));
+                controller.emailList.getItems().add(rs.getString(3));
+                controller.passwordList.getItems().add(rs.getString(4));
+                controller.adminList.getItems().add(rs.getInt(5));
             }
+
 
         } catch (SQLException e) {
             e.printStackTrace();

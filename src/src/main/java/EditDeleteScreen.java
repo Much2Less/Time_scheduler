@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class EditDeleteScreen {
 
@@ -16,10 +17,7 @@ public class EditDeleteScreen {
     }
 
     public void switchToCalender(ActionEvent actionEvent) throws IOException {
-        /**
-         *
-         */
-        Parent root = (Parent) FXMLLoader.load(this.getClass().getResource("optionmenu.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(this.getClass().getResource("optionMenu.fxml")));
         this.stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         this.stage.setTitle("Welcome to Time Scheduler");
         this.scene = new Scene(root);
