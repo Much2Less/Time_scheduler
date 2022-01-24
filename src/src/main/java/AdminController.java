@@ -35,7 +35,9 @@ public class AdminController {
     @FXML
     private ListView<Integer> adminList;
     @FXML
-    private ListView<Button> buttonList;
+    private ListView<Button> editButtonList;
+    @FXML
+    private ListView<Button> deleteButtonList;
 
     //Button declarations
     @FXML
@@ -44,24 +46,35 @@ public class AdminController {
     private Button submitAdmin;
 
     public static void setup(FXMLLoader loader) {
-        AdminController controller = loader.getController();
+        AdminController adminController = loader.getController();
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement stmt = conn.prepareStatement(QUERY)
         ) {
             ResultSet rs = stmt.executeQuery();
+            int fetchSize = 0;
 
             while (rs.next()) {
-                controller.idList.getItems().add(rs.getInt(1));
-                controller.usernameList.getItems().add(rs.getString(2));
-                controller.emailList.getItems().add(rs.getString(3));
-                controller.passwordList.getItems().add(rs.getString(4));
-                controller.adminList.getItems().add(rs.getInt(5));
+                adminController.idList.getItems().add(rs.getInt(1));
+                adminController.usernameList.getItems().add(rs.getString(2));
+                adminController.emailList.getItems().add(rs.getString(3));
+                adminController.passwordList.getItems().add(rs.getString(4));
+                adminController.adminList.getItems().add(rs.getInt(5));
+                fetchSize++;
+            }
+            for (int i = 0; i < fetchSize; i++) {
+                adminController.editButtonList.getItems().add(new Button("Edit"));
+                adminController.editButtonList.getItems().get(i).setId("editButton"+i);
+                adminController.deleteButtonList.getItems().add(new Button("Delete"));
             }
 
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public void deletePrompt(int index) {
 
     }
 }
