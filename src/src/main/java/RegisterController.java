@@ -18,8 +18,8 @@ import java.util.regex.Pattern;
 
 public class RegisterController {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "much2less";
-    static final String PASS = "1234qwer";
+    static final String USER = "root";
+    static final String PASS = "Prabin2468";
     static final String QUERY = "INSERT INTO login (username,email,password,admin) VALUES (?, ?, ?, 0)";
 
     @FXML

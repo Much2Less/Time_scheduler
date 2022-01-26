@@ -59,22 +59,12 @@ public class CalenderController implements Initializable {
     private String listParticipantsAppointment;
     private String locationAppointment;
     private String reminderAppointment;
-    private CheckBox HighAppointment;
-    private CheckBox MediumAppointment;
-    private CheckBox LowAppointment;
-    private String threehoursAppointment;
     private String priorityAppointment;
     private ChoiceBox reminderboxAppointment;
     private String[] option = {"High","Medium","Low"};
     private String[] option2 = {"1 Week","3 Days","1 Hour","10 Minutes"};
 
 
-/*
-    public void getDate(ActionEvent event) {
-        LocalDate date = dateAppointment.getValue();
-    }
-
-*/
             private Stage stage;
             private Scene scene;
 
@@ -101,7 +91,6 @@ public class CalenderController implements Initializable {
         listParticipantsAppointment = listParticipants.getText();
         priorityAppointment =priority.getValue();
         reminderAppointment= reminderbox.getValue();
-
 
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);

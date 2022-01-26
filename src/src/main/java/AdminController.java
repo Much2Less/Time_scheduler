@@ -19,8 +19,8 @@ import static javafx.fxml.FXMLLoader.load;
 
 public class AdminController {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "much2less";
-    static final String PASS = "1234qwer";
+    static final String USER = "root";
+    static final String PASS = "Prabin2468";
     static final String QUERY = "SELECT * FROM login";
 
     //List declarations
@@ -72,6 +72,17 @@ public class AdminController {
             e.printStackTrace();
         }
 
+    }
+    private Stage stage;
+    private Scene scene;
+
+    public void backtoLogin(javafx.event.ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("SignUp");
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void deletePrompt(int index) {
