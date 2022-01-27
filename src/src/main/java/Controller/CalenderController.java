@@ -76,7 +76,7 @@ public class CalenderController implements Initializable {
     private String locationAppointment;
     private String reminderAppointment;
     private String priorityAppointment;
-    private ChoiceBox reminderboxAppointment;
+    //private ChoiceBox reminderboxAppointment;
     private String[] option = {"High","Medium","Low"};
     private String[] option2 = {"1 Week","3 Days","1 Hour","10 Minutes"};
 
@@ -87,16 +87,7 @@ public class CalenderController implements Initializable {
     public CalenderController() {
     }
 
-    public void switchToMenu(javafx.event.ActionEvent actionEvent) throws IOException {
-            Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("optionMenu.fxml")));
-            stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-            stage.setTitle("Welcome");
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            }
-
-    public void creatAppointment(ActionEvent actionEvent) throws IOException, SQLException, NoSuchAlgorithmException {
+    public void creatAppointment(ActionEvent actionEvent) throws IOException, SQLException {
         eventNameAppointment = eventName.getText();
         LocalDate dateAppointment = date.getValue();
         hourAppointment = hour.getText();
@@ -110,7 +101,7 @@ public class CalenderController implements Initializable {
 
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement(QUERY);
+             PreparedStatement stmt = conn.prepareStatement(QUERY)
         ) {
             stmt.setString(1, eventNameAppointment);
             stmt.setString(2, String.valueOf(dateAppointment));
@@ -126,13 +117,17 @@ public class CalenderController implements Initializable {
 
 
             stmt.executeUpdate();
-            switchToMenu(actionEvent);
+            switchToOptionMenu(actionEvent);
             System.out.println("Success!");
         }
 
     }
     public void cancelButton(javafx.event.ActionEvent actionEvent) throws IOException {
-        Parent root = load(Objects.requireNonNull(getClass().getResource("optionMenu.fxml")));
+        switchToOptionMenu(actionEvent);
+    }
+
+    private void switchToOptionMenu(ActionEvent actionEvent) throws IOException {
+        Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("optionMenu.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("Welcome");
         scene = new Scene(root);
