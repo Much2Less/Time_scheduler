@@ -22,8 +22,8 @@ import static javafx.fxml.FXMLLoader.load;
 public class
 LoginController extends Application {
 	static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-	static final String USER = "root";
-	static final String PASS = "Prabin2468";
+	static final String USER = "much2less";
+	static final String PASS = "1234qwer";
 	static final String QUERY = "SELECT username, password, admin FROM login WHERE username = ? AND password = ?";
 
 	@FXML
@@ -34,10 +34,11 @@ LoginController extends Application {
 	private Stage stage;
 	private Scene scene;
 
+	static public User currentUser;
+
 	public static void main(String[] args) {
 		launch(args);
 	}
-
 
 	@Override
 	public void start(Stage stage) {
@@ -79,6 +80,14 @@ LoginController extends Application {
 			if (rs.next()) {
 				if (rs.getInt(3) > 0) switchToAdmin(actionEvent);
 				else {
+					currentUser = new User(
+							rs.getInt(1),
+							rs.getString(2),
+							rs.getString(3),
+							rs.getString(4),
+							rs.getInt(5)
+							);
+
 					Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("optionMenu.fxml")));
 					stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
 					stage.setTitle("Welcome to Time Scheduler");

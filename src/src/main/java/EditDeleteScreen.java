@@ -1,3 +1,4 @@
+import Controller.LoginController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,11 +40,12 @@ public class EditDeleteScreen implements Initializable{
     private int userid;
 
 
+    public User currentUser = LoginController.currentUser;
 
 
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "root";
-    static final String PASS = "Prabin2468";
+    static final String USER = "much2less";
+    static final String PASS = "1234qwer";
     static final String QUERY = "SELECT name,date,participants,reminder FROM time_scheduler.appointment Where  userid = ?";
     static final String SELECT_FROM_Appointment = "SELECT name,date,participants,reminder FROM appointment";
 

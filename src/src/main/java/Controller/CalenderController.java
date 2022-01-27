@@ -20,6 +20,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import Object.User;
+
 import static javafx.fxml.FXMLLoader.load;
 
 /*
@@ -34,9 +36,11 @@ Participants:
 
 public class CalenderController implements Initializable {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "root";
-    static final String PASS = "Prabin2468";
-    static final String QUERY = "INSERT INTO appointment (name,date,start,startminutes,end,endminutes,location,participants,priority,reminder) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?)";
+    static final String USER = "much2less";
+    static final String PASS = "1234qwer";
+    static final String QUERY = "INSERT INTO appointment (name,date,start,startminutes,end,endminutes,location,participants,priority,reminder,userid) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    public User currentUser = LoginController.currentUser;
 
     @FXML
     private TextField eventName;
@@ -94,7 +98,7 @@ public class CalenderController implements Initializable {
 
     public void creatAppointment(ActionEvent actionEvent) throws IOException, SQLException, NoSuchAlgorithmException {
         eventNameAppointment = eventName.getText();
-         LocalDate dateAppointment = date.getValue();
+        LocalDate dateAppointment = date.getValue();
         hourAppointment = hour.getText();
         minutesAppointment = minutes.getText();
         durationHourAppointment = durationHour.getText();
