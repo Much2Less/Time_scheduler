@@ -75,6 +75,7 @@ public class EditDeleteScreen implements Initializable{
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement stmt = conn.prepareStatement(QUERY)
         ) {
+            stmt.setInt(1, currentUser.getId());
             ResultSet rs = stmt.executeQuery();
 
 

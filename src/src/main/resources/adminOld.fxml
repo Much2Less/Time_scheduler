@@ -45,7 +45,7 @@
    </AnchorPane>
    <ScrollPane prefHeight="671.0" prefWidth="812.0">
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="607.0" prefWidth="810.0">
-         <ListView fx:id="userList" fixedCellSize="30.0" prefHeight="607.0" prefWidth="123.0" />
+         <ListView fx:id="userListView" fixedCellSize="30.0" prefHeight="607.0" prefWidth="123.0" />
          <ListView fx:id="emailList" fixedCellSize="30.0" layoutX="123.0" prefHeight="607.0" prefWidth="123.0" />
          <ListView fx:id="passwordList" fixedCellSize="30.0" layoutX="246.0" prefHeight="607.0" prefWidth="123.0" />
          <ListView fx:id="adminList" fixedCellSize="30.0" layoutX="369.0" prefHeight="607.0" prefWidth="123.0" />

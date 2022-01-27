@@ -24,8 +24,8 @@ import static javafx.fxml.FXMLLoader.load;
 
 public class AdminController implements Initializable {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "root";
-    static final String PASS = "Prabin2468";
+    static final String USER = "much2less";
+    static final String PASS = "1234qwer";
     static final String SELECT_FROM_LOGIN = "SELECT * FROM login";
     static final String DELETE_USER = "DELETE FROM login WHERE id = ?";
 
@@ -35,7 +35,7 @@ public class AdminController implements Initializable {
 
     //List declarations
     @FXML
-    private ListView<String> userList;
+    private ListView<String> userListView;
 
     //Button declarations
     @FXML
@@ -74,7 +74,7 @@ public class AdminController implements Initializable {
 
             //Builds a string with information from every user
             for (int i = 0; i < userArrayList.size(); i++) {
-                userList.getItems().add(
+                userListView.getItems().add(
                         userArrayList.get(i).getId() + " "
                         + userArrayList.get(i).getUsername() + " "
                         + userArrayList.get(i).getEmail() + " "
@@ -82,7 +82,7 @@ public class AdminController implements Initializable {
                         + userArrayList.get(i).getPassword());
             }
 
-            userList.setOnMouseClicked(event -> selectedUserIndex = userList.getSelectionModel().getSelectedIndex());
+            userListView.setOnMouseClicked(event -> selectedUserIndex = userListView.getSelectionModel().getSelectedIndex());
 
 
         } catch (SQLException e) {
@@ -111,7 +111,7 @@ public class AdminController implements Initializable {
         alert.setOnCloseRequest(event -> {
                 try {
                     deleteUser(selectedUserIndex);
-                    userList.getItems().remove(selectedUserIndex);
+                    userListView.getItems().remove(selectedUserIndex);
                     /*
                     selectFromLogin();
 

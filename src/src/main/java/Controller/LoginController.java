@@ -24,7 +24,7 @@ LoginController extends Application {
 	static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
 	static final String USER = "much2less";
 	static final String PASS = "1234qwer";
-	static final String QUERY = "SELECT username, password, admin FROM login WHERE username = ? AND password = ?";
+	static final String QUERY = "SELECT * FROM login WHERE username = ? AND password = ?";
 
 	@FXML
 	private TextField usernameLogin;
@@ -78,7 +78,7 @@ LoginController extends Application {
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				if (rs.getInt(3) > 0) switchToAdmin(actionEvent);
+				if (rs.getInt(5) > 0) switchToAdmin(actionEvent);
 				else {
 					currentUser = new User(
 							rs.getInt(1),
