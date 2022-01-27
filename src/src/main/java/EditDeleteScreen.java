@@ -1,7 +1,3 @@
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,14 +8,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import Object.Appointments;
+import Object.User;
 
 public class EditDeleteScreen implements Initializable{
 
@@ -35,13 +33,19 @@ public class EditDeleteScreen implements Initializable{
     @FXML
     private Button buttonCancel ;
 
+    private final ArrayList<Appointments> userAppoList = new ArrayList<>();
+
+    private int selectedUserIndex;
+    private int userid;
+
 
 
 
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
     static final String USER = "root";
     static final String PASS = "Prabin2468";
-    static final String QUERY = "SELECT name,date,participants FROM time_scheduler.appointment ";
+    static final String QUERY = "SELECT name,date,participants,reminder FROM time_scheduler.appointment Where  userid = ?";
+    static final String SELECT_FROM_Appointment = "SELECT name,date,participants,reminder FROM appointment";
 
 
 
@@ -57,6 +61,51 @@ public class EditDeleteScreen implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        selectfromappoint();
+
+
+    }
+
+    public void selectfromappoint(){
+
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement stmt = conn.prepareStatement(QUERY)
+        ) {
+            ResultSet rs = stmt.executeQuery();
+
+
+            //Saving Users from the database in an ArrayList
+            while (rs.next()) {
+                userAppoList.add(new Appointments(
+                        rs.getString("name"),
+                        Date.valueOf(rs.getString("date")),
+                        rs.getString("participants"),
+                        rs.getString("reminder")));
+            }
+
+
+            //Builds a string with information from every user
+            for (int i = 0; i < userAppoList.size(); i++) {
+                myListview.getItems().add(
+                            userAppoList.get(i).getName() + " "
+                                + userAppoList.get(i).getDate() + " "
+                                + userAppoList.get(i).getParticipants() + " "
+                                + userAppoList.get(i).getReminder());
+            }
+
+            myListview.setOnMouseClicked(event -> selectedUserIndex = myListview.getSelectionModel().getSelectedIndex());
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+        /*
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement stmt = conn.prepareStatement(QUERY)
 
@@ -78,13 +127,14 @@ public class EditDeleteScreen implements Initializable{
 
                     }
                 });
-*/                  myListview.setOnMouseClicked(event -> {
+          myListview.setOnMouseClicked(event -> {
 
                     String selectedItem = myListview.getSelectionModel().getSelectedItem().toString();
 
                 });
+        */
 
-
+ /*
                 }
             }
 
@@ -96,6 +146,8 @@ public class EditDeleteScreen implements Initializable{
 
 
     }
+
+  */
 }
 
 

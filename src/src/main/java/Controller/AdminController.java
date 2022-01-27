@@ -5,19 +5,27 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
+
+import static javafx.fxml.FXMLLoader.load;
 
 public class AdminController implements Initializable {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "much2less";
-    static final String PASS = "1234qwer";
+    static final String USER = "root";
+    static final String PASS = "Prabin2468";
     static final String SELECT_FROM_LOGIN = "SELECT * FROM login";
     static final String DELETE_USER = "DELETE FROM login WHERE id = ?";
 
@@ -89,7 +97,7 @@ public class AdminController implements Initializable {
         ) {
             stmt.setInt(1, userArrayList.get(index).getId());
             stmt.executeUpdate();
-            userList.getItems().clear();
+
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
@@ -103,7 +111,11 @@ public class AdminController implements Initializable {
         alert.setOnCloseRequest(event -> {
                 try {
                     deleteUser(selectedUserIndex);
+                    userList.getItems().remove(selectedUserIndex);
+                    /*
                     selectFromLogin();
+
+                     */
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -113,4 +125,15 @@ public class AdminController implements Initializable {
         );
     }
 
+    private Stage stage;
+    private Scene scene;
+
+    public void backtoLogin(javafx.event.ActionEvent actionEvent) throws IOException {
+        Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("login.fxml")));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("Register");
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

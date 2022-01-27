@@ -34,8 +34,8 @@ Participants:
 
 public class CalenderController implements Initializable {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "much2less";
-    static final String PASS = "1234qwer";
+    static final String USER = "root";
+    static final String PASS = "Prabin2468";
     static final String QUERY = "INSERT INTO appointment (name,date,start,startminutes,end,endminutes,location,participants,priority,reminder) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?)";
 
     @FXML
