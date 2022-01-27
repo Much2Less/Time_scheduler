@@ -53,11 +53,6 @@ public class AdminController implements Initializable {
         ) {
             ResultSet rs = stmt.executeQuery();
 
-            try {
-                userList.getItems().clear();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
             //Saving Users from the database in an ArrayList
             while (rs.next()) {
@@ -93,7 +88,8 @@ public class AdminController implements Initializable {
              PreparedStatement stmt = conn.prepareStatement(DELETE_USER)
         ) {
             stmt.setInt(1, userArrayList.get(index).getId());
-            stmt.executeQuery();
+            stmt.executeUpdate();
+            userList.getItems().clear();
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
