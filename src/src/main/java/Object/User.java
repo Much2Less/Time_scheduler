@@ -1,3 +1,5 @@
+package Object;
+
 public class User {
     private int id;
     private String username;
@@ -7,8 +9,8 @@ public class User {
 
     public User(int id, String username, String email, String password, int admin) {
         this.id = id;
-        this.username = username;
         this.email = email;
+        this.username = username;
         this.password = password;
         this.admin = admin;
     }

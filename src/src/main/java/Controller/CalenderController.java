@@ -1,3 +1,5 @@
+package Controller;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,10 +22,20 @@ import java.util.ResourceBundle;
 
 import static javafx.fxml.FXMLLoader.load;
 
+/*
+TODO
+When selecting the time of appointment or the duration:
+- It shouldn't be possible to input a number greater than 23 hours or 59 minutes
+- When typing a number between 0-9 the input should append a zero before the number (Example: instead of 1 it should be converted to 01)
+
+Participants:
+- Participants need multiple input fields for multiple inputs. An add button is needed to add more input fields!
+ */
+
 public class CalenderController implements Initializable {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "root";
-    static final String PASS = "Prabin2468";
+    static final String USER = "much2less";
+    static final String PASS = "1234qwer";
     static final String QUERY = "INSERT INTO appointment (name,date,start,startminutes,end,endminutes,location,participants,priority,reminder) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?)";
 
     @FXML
@@ -81,8 +93,8 @@ public class CalenderController implements Initializable {
     public CalenderController() {
     }
 
-    public void switchToRegister(javafx.event.ActionEvent actionEvent) throws IOException {
-            Parent root = load(Objects.requireNonNull(getClass().getResource("optionmenu.fxml")));
+    public void switchToMenu(javafx.event.ActionEvent actionEvent) throws IOException {
+            Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("optionMenu.fxml")));
             stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
             stage.setTitle("Welcome");
             scene = new Scene(root);
@@ -121,13 +133,13 @@ public class CalenderController implements Initializable {
 
 
             stmt.executeUpdate();
-            switchToRegister(actionEvent);
+            switchToMenu(actionEvent);
             System.out.println("Success!");
         }
 
     }
-    public void canclebutton(javafx.event.ActionEvent actionEvent) throws IOException {
-        Parent root = load(Objects.requireNonNull(getClass().getResource("optionmenu.fxml")));
+    public void cancelButton(javafx.event.ActionEvent actionEvent) throws IOException {
+        Parent root = load(Objects.requireNonNull(getClass().getResource("optionMenu.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("Welcome");
         scene = new Scene(root);

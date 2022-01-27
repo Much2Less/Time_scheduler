@@ -1,3 +1,7 @@
+package Controller;
+
+import Object.*;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -42,7 +46,7 @@ public class RegisterController {
     private Parent root;
 
     public void switchToLogin(javafx.event.ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("SignUp");
         scene = new Scene(root);

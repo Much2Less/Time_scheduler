@@ -1,3 +1,5 @@
+package Controller;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,13 +15,15 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Objects;
 
+import Object.*;
+
 import static javafx.fxml.FXMLLoader.load;
 
 public class
 LoginController extends Application {
 	static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-	static final String USER = "root";
-	static final String PASS = "Prabin2468";
+	static final String USER = "much2less";
+	static final String PASS = "1234qwer";
 	static final String QUERY = "SELECT username, password, admin FROM login WHERE username = ? AND password = ?";
 
 	@FXML
@@ -33,6 +37,7 @@ LoginController extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 
 	@Override
 	public void start(Stage stage) {
@@ -49,7 +54,7 @@ LoginController extends Application {
 	}
 
 	public void switchToRegister(javafx.event.ActionEvent actionEvent) throws IOException {
-		Parent root = load(Objects.requireNonNull(getClass().getResource("register.fxml")));
+		Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("register.fxml")));
 		stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
 		stage.setTitle("Register");
 		scene = new Scene(root);
@@ -74,7 +79,7 @@ LoginController extends Application {
 			if (rs.next()) {
 				if (rs.getInt(3) > 0) switchToAdmin(actionEvent);
 				else {
-					Parent root = load(Objects.requireNonNull(getClass().getResource("optionMenu.fxml")));
+					Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("optionMenu.fxml")));
 					stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
 					stage.setTitle("Welcome to Time Scheduler");
 					scene = new Scene(root);
@@ -93,13 +98,11 @@ LoginController extends Application {
 	}
 
 	public void switchToAdmin(ActionEvent actionEvent) throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("admin.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("admin.fxml"));
 		Parent root = loader.load();
-		AdminController controller = loader.getController();
 		stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-		AdminController.setup(loader);
 	}
 }

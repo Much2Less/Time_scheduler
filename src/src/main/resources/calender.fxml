@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="712.0" prefWidth="782.0" style="-fx-border-color: #A865C9; -fx-background-color: #A865C9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CalenderController">
+<AnchorPane prefHeight="712.0" prefWidth="782.0" style="-fx-border-color: #A865C9; -fx-background-color: #A865C9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CalenderController">
    <children>
       <Button layoutX="489.0" layoutY="578.0" mnemonicParsing="false" onAction="#creatAppointment" prefHeight="49.0" prefWidth="182.0" style="-fx-background-color: #1B6CD7; -fx-background-radius: 5em;" text="Creat Appointment" />
       <AnchorPane layoutX="2.0" layoutY="43.0" prefHeight="600.0" prefWidth="396.0">
@@ -92,7 +92,7 @@
             </Label>
             <TextField fx:id="eventort" layoutX="30.0" layoutY="496.0" prefHeight="26.0" prefWidth="305.0" />
             <Separator layoutX="392.0" layoutY="1.0" orientation="VERTICAL" prefHeight="685.0" prefWidth="6.0" style="-fx-background-color: #000000;" />
-            <Button fx:id="cancleButton" layoutX="99.0" layoutY="556.0" mnemonicParsing="false" onAction="#canclebutton" prefHeight="49.0" prefWidth="162.0" style="-fx-background-radius: 5em; -fx-background-color: #8B0000;" text="Cancle" />
+            <Button fx:id="cancleButton" layoutX="99.0" layoutY="556.0" mnemonicParsing="false" onAction="#cancelButton" prefHeight="49.0" prefWidth="162.0" style="-fx-background-radius: 5em; -fx-background-color: #8B0000;" text="Cancle" />
          </children>
       </AnchorPane>
       <Label layoutX="432.0" layoutY="402.0" prefHeight="17.0" prefWidth="280.0" text="Reminder " textAlignment="CENTER">

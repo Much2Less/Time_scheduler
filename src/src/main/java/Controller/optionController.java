@@ -1,3 +1,5 @@
+package Controller;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -15,7 +17,7 @@ public class optionController {
 
 
         public void switchToLogin(javafx.event.ActionEvent actionEvent) throws IOException {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login.fxml")));
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setTitle("SignUp");
             scene = new Scene(root);
@@ -24,7 +26,7 @@ public class optionController {
         }
 
     public void switchToCalender(javafx.event.ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("calender.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("calender.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("Welcome to Time Scheduler");
         scene = new Scene(root);
@@ -32,7 +34,7 @@ public class optionController {
         stage.show();
     }
     public void switchToEditDeleteScreen(javafx.event.ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("editDeleteScreen.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("editDeleteScreen.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("Edit or Delete your Meetings ");
         scene = new Scene(root);
