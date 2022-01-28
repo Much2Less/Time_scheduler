@@ -7,8 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert.AlertType;
+
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -22,8 +25,8 @@ import static javafx.fxml.FXMLLoader.load;
 public class
 LoginController extends Application {
 	static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-	static final String USER = "much2less";
-	static final String PASS = "1234qwer";
+	static final String USER = "root";
+	static final String PASS = "Passwort123";
 	static final String QUERY = "SELECT * FROM login WHERE username = ? AND password = ?";
 
 	@FXML
@@ -97,9 +100,11 @@ LoginController extends Application {
 				}
 			}
 			else {
-				System.out.println("Not found!");
+				Alert errorAlert = new Alert(AlertType.ERROR);
+				errorAlert.setHeaderText("ERROR");
+				errorAlert.setContentText("User not found or password is wrong!");
+				errorAlert.showAndWait();
 			}
-			//TODO Display an Error Message if Username was not found or password is wrong
 
 		} catch (SQLException e) {
 			e.printStackTrace();
