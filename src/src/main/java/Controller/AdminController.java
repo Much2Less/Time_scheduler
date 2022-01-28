@@ -45,8 +45,8 @@ public class AdminController implements Initializable {
 
     @FXML
     private Button cancelAdmin;
-    @FXML
-    private Button submitAdmin;
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resourceBundle) {
@@ -102,6 +102,15 @@ public class AdminController implements Initializable {
             throwable.printStackTrace();
         }
 
+    }
+
+    public void switchToLogin(javafx.event.ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login.fxml")));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("SignUp");
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void confirmationEvent(ActionEvent actionEvent) {
