@@ -7,23 +7,23 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Objects;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterController {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "much2less";
-    static final String PASS = "1234qwer";
+    static final String USER = "root";
+    static final String PASS = "Passwort123";
     static final String QUERY = "INSERT INTO login (username,email,password,admin) VALUES (?, ?, ?, 0)";
 
     @FXML
@@ -54,42 +54,78 @@ public class RegisterController {
         stage.show();
     }
 
-    public void registerUser(javafx.event.ActionEvent actionEvent) throws IOException,  NoSuchAlgorithmException {
+    public void registerUser(javafx.event.ActionEvent actionEvent) throws IOException, NoSuchAlgorithmException, SQLException {
         username = usernameRegister.getText();
         email = emailRegister.getText();
         password = passwordRegister.getText();
 
-        /*
-        if(checkRegisterData(username, email, password)) {
-            errorBoxRegister.setText("");
-            errorBoxRegister.setText(error.toString());
+        System.out.println(isValidData(username, email, password));
+
+        if(isValidData(username, email, password)) {
+            if (!checkUser(email)) {
+                HashedPassword hashedPassword = new HashedPassword(password);
+                String hash = hashedPassword.getHashString();
+
+
+                try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+                     PreparedStatement stmt = conn.prepareStatement(QUERY)
+                ) {
+                    stmt.setString(1, username);
+                    stmt.setString(2, email);
+                    stmt.setString(3, hash);
+
+                    stmt.executeUpdate();
+
+                    System.out.println("Success!");
+                    switchToLogin(actionEvent);
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
-         */
-
-        HashedPassword hashedPassword = new HashedPassword(password);
-        String hash = hashedPassword.getHashString();
-
-
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement(QUERY)
-        ) {
-            stmt.setString(1, username);
-            stmt.setString(2, email);
-            stmt.setString(3, hash);
-
-            stmt.executeUpdate();
-
-            System.out.println("Success!");
-            switchToLogin(actionEvent);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
-        //TODO implement an exception if the username or email is already existing in the database
-
     }
+
+
+   public boolean checkUser(String email) {
+        boolean usernameExists = false;
+
+        try
+        {
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            PreparedStatement stmt = conn.prepareStatement("select * from login where email = ? ");
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            String usernameCounter;
+            if(rs.next())
+            {
+                usernameCounter = rs.getString("email");
+                if(usernameCounter.equals(email))
+                {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setHeaderText("ERROR");
+                    errorAlert.setContentText("Process failed, please register again");
+                    errorAlert.showAndWait();
+                    usernameExists = true;
+
+                    usernameRegister.clear();
+                    emailRegister.clear();
+                    passwordRegister.clear();
+                }
+
+            }
+        }
+        catch (SQLException e)
+        {
+            System.out.println("SQL Exception: "+ e.toString());
+        }
+
+       return usernameExists;
+    }
+
+
 
     //TODO checkRegisterData: Should check if Username is not too long, E-Mail has correct format and Password is strong enough
     //The Method should also build a String with all errors that occured when registering
@@ -99,9 +135,8 @@ public class RegisterController {
         Not a real E-Mail
         Password has no numbers
      */
-/*
 
-    private boolean checkRegisterData(String username, String email, String password) {
+   /* private boolean checkRegisterData(String username, String email, String password) {
         boolean return_val = false;
 
         if (username.length() < 4) {
@@ -113,7 +148,7 @@ public class RegisterController {
             error.append("Username is too long!\n");
         }
 
-        Pattern p = Pattern.compile("[^a-z0-9]", Pattern.CASE_INSENSITIVE);
+        Pattern p = Pattern.compile("^[A-Za-z0-9]", Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(username);
         boolean res = m.find();
         if (res) {
@@ -126,5 +161,55 @@ public class RegisterController {
         return return_val;
     }
 
-*/
+}*/
+
+    private boolean isValidData(String username, String email, String password) {
+        boolean validData = true;
+
+        String regex1 = "^[A-Za-z0-9]{5,29}$";
+        String regex2 = "^(.+)@(.+)$";
+        String regex3 = "^(?=.*[0-9])" //at least one digit/lower and upper case alphabet must occur
+                + "(?=.*[a-z])(?=.*[A-Z])" // special character at least once, white spaces not allowed
+                + "(?=.*[@#$%^&+=.])"
+                + "(?=\\S+$).{6,20}$";
+
+        StringBuilder errorMsg = new StringBuilder();
+
+        if(!username.matches(regex1)) {
+            errorMsg.append("Invalid username\n");
+
+            usernameRegister.clear();
+            emailRegister.clear();
+            passwordRegister.clear();
+            validData = false;
+        }
+        if(!email.matches(regex2)){
+            errorMsg.append("Invalid email\n");
+
+            usernameRegister.clear();
+            emailRegister.clear();
+            passwordRegister.clear();
+            validData = false;
+
+        }
+        if(!password.matches(regex3)) {
+            errorMsg.append("Password has no correct form (At least one upper and lowercase alphabet, one special character and between 6-20 characters");
+
+            usernameRegister.clear();
+            emailRegister.clear();
+            passwordRegister.clear();
+            validData = false;
+
+        }
+
+        if(!validData) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("ERROR");
+            errorAlert.setContentText(errorMsg.toString());
+            errorAlert.showAndWait();
+
+        }
+
+        return validData;
+    }
 }
