@@ -1,122 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="712.0" prefWidth="782.0" style="-fx-border-color: #A865C9; -fx-background-color: #A865C9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CalenderController">
-   <children>
-      <Button layoutX="489.0" layoutY="578.0" mnemonicParsing="false" onAction="#creatAppointment" prefHeight="49.0" prefWidth="182.0" style="-fx-background-color: #1B6CD7; -fx-background-radius: 5em;" text="Creat Appointment" />
-      <AnchorPane layoutX="2.0" layoutY="43.0" prefHeight="600.0" prefWidth="396.0">
-         <children>
-            <Label layoutX="35.0" layoutY="41.0" prefHeight="17.0" prefWidth="280.0" text="Name of event" textAlignment="CENTER">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="eventName" layoutX="38.0" layoutY="70.0" prefHeight="26.0" prefWidth="305.0" />
-            <Label layoutX="29.0" layoutY="119.0" prefHeight="17.0" prefWidth="280.0" text="Select a date for your appointment" textAlignment="CENTER">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <DatePicker fx:id="date" layoutX="26.0" layoutY="148.0" prefHeight="35.0" prefWidth="330.0" promptText="Choose or pick a Date" />
-            <Label layoutX="29.0" layoutY="203.0" prefHeight="17.0" prefWidth="280.0" text="Select time for your appointment" textAlignment="CENTER">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Pane layoutX="31.0" layoutY="234.0" prefHeight="78.0" prefWidth="121.0" style="-fx-background-color: #BDBDBD;">
-               <children>
-                  <Label layoutX="45.0" layoutY="4.0" text="Hour">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="hour" alignment="CENTER" layoutX="10.0" layoutY="24.0" prefHeight="40.0" prefWidth="100.0" promptText="00" style="-fx-background-color: #808080;">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </Pane>
-            <Pane layoutX="180.0" layoutY="234.0" prefHeight="78.0" prefWidth="121.0" style="-fx-background-color: #BDBDBD;">
-               <children>
-                  <Label layoutX="36.0" layoutY="4.0" text="Minutes">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="minutes" alignment="CENTER" layoutX="10.0" layoutY="24.0" prefHeight="40.0" prefWidth="100.0" promptText="00" style="-fx-background-color: #808080;">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </Pane>
-            <Label layoutX="29.0" layoutY="334.0" prefHeight="17.0" prefWidth="280.0" text="Duration of event" textAlignment="CENTER">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="durationHour" alignment="CENTER" layoutX="35.0" layoutY="370.0" prefHeight="40.0" prefWidth="100.0" promptText="00" style="-fx-background-color: #808080;">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="durationMinutes" alignment="CENTER" layoutX="180.0" layoutY="370.0" prefHeight="40.0" prefWidth="100.0" promptText="00" style="-fx-background-color: #808080;">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </TextField>
-            <Label layoutX="70.0" layoutY="416.0" text="Hour">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="205.0" layoutY="416.0" text="Minutes">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="29.0" layoutY="461.0" prefHeight="17.0" prefWidth="280.0" text="Location of event" textAlignment="CENTER">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="eventort" layoutX="30.0" layoutY="496.0" prefHeight="26.0" prefWidth="305.0" />
-            <Separator layoutX="392.0" layoutY="1.0" orientation="VERTICAL" prefHeight="685.0" prefWidth="6.0" style="-fx-background-color: #000000;" />
-            <Button fx:id="cancleButton" layoutX="99.0" layoutY="556.0" mnemonicParsing="false" onAction="#cancelButton" prefHeight="49.0" prefWidth="162.0" style="-fx-background-radius: 5em; -fx-background-color: #8B0000;" text="Cancle" />
-         </children>
-      </AnchorPane>
-      <Label layoutX="432.0" layoutY="402.0" prefHeight="17.0" prefWidth="280.0" text="Reminder " textAlignment="CENTER">
+<AnchorPane prefHeight="712.0" prefWidth="782.0" style="-fx-border-color: #A865C9; -fx-background-color: #A865C9;"
+            xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controller.CalenderController">
+   <Button layoutX="489.0" layoutY="578.0" mnemonicParsing="false" onAction="#creatAppointment" prefHeight="49.0"
+           prefWidth="182.0" style="-fx-background-color: #1B6CD7; -fx-background-radius: 5em;"
+           text="Creat Appointment"/>
+   <AnchorPane layoutX="2.0" layoutY="43.0" prefHeight="600.0" prefWidth="396.0">
+      <Label layoutX="35.0" layoutY="41.0" prefHeight="17.0" prefWidth="280.0" text="Name of event"
+             textAlignment="CENTER">
          <font>
-            <Font size="14.0" />
+            <Font size="14.0"/>
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="302.0" layoutY="14.0" prefHeight="17.0" prefWidth="280.0" style="-fx-background-color: #FFFAFA;" text="Time Schueduler" textAlignment="CENTER">
+      <TextField fx:id="eventName" layoutX="38.0" layoutY="70.0" prefHeight="26.0" prefWidth="305.0"/>
+      <Label layoutX="29.0" layoutY="119.0" prefHeight="17.0" prefWidth="280.0"
+             text="Select a date for your appointment" textAlignment="CENTER">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font size="14.0"/>
          </font>
       </Label>
-      <Label layoutX="442.0" layoutY="263.0" prefHeight="17.0" prefWidth="280.0" text="Priority" textAlignment="CENTER">
+      <DatePicker fx:id="date" layoutX="26.0" layoutY="148.0" prefHeight="35.0" prefWidth="330.0"
+                  promptText="Choose or pick a Date"/>
+      <Label layoutX="29.0" layoutY="203.0" prefHeight="17.0" prefWidth="280.0"
+             text="Select time for your appointment" textAlignment="CENTER">
          <font>
-            <Font size="14.0" />
+            <Font size="14.0"/>
          </font>
       </Label>
-      <Label layoutX="432.0" layoutY="95.0" prefHeight="17.0" prefWidth="280.0" text="Participants" textAlignment="CENTER">
+      <Pane layoutX="31.0" layoutY="234.0" prefHeight="78.0" prefWidth="121.0"
+            style="-fx-background-color: #BDBDBD;">
+         <Label layoutX="45.0" layoutY="4.0" text="Hour">
+            <font>
+               <Font size="14.0"/>
+            </font>
+         </Label>
+         <TextField fx:id="hour" alignment="CENTER" layoutX="10.0" layoutY="24.0" prefHeight="40.0"
+                    prefWidth="100.0" promptText="00" style="-fx-background-color: #808080;">
+            <font>
+               <Font size="25.0"/>
+            </font>
+         </TextField>
+      </Pane>
+      <Pane layoutX="180.0" layoutY="234.0" prefHeight="78.0" prefWidth="121.0"
+            style="-fx-background-color: #BDBDBD;">
+         <Label layoutX="36.0" layoutY="4.0" text="Minutes">
+            <font>
+               <Font size="14.0"/>
+            </font>
+         </Label>
+         <TextField fx:id="minutes" alignment="CENTER" layoutX="10.0" layoutY="24.0" prefHeight="40.0"
+                    prefWidth="100.0" promptText="00" style="-fx-background-color: #808080;">
+            <font>
+               <Font size="25.0"/>
+            </font>
+         </TextField>
+      </Pane>
+      <Label layoutX="29.0" layoutY="334.0" prefHeight="17.0" prefWidth="280.0" text="Duration of event"
+             textAlignment="CENTER">
          <font>
-            <Font size="14.0" />
+            <Font size="14.0"/>
          </font>
       </Label>
-      <TextField fx:id="listParticipants" layoutX="432.0" layoutY="129.0" prefHeight="20.0" prefWidth="152.0" />
-      <ChoiceBox fx:id="priority" layoutX="433.0" layoutY="307.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="reminderbox" layoutX="433.0" layoutY="441.0" prefWidth="150.0" />
-   </children>
+      <TextField fx:id="durationHour" alignment="CENTER" layoutX="35.0" layoutY="370.0" prefHeight="40.0"
+                 prefWidth="100.0" promptText="00" style="-fx-background-color: #808080;">
+         <font>
+            <Font size="25.0"/>
+         </font>
+      </TextField>
+      <TextField fx:id="durationMinutes" alignment="CENTER" layoutX="180.0" layoutY="370.0" prefHeight="40.0"
+                 prefWidth="100.0" promptText="00" style="-fx-background-color: #808080;">
+         <font>
+            <Font size="25.0"/>
+         </font>
+      </TextField>
+      <Label layoutX="70.0" layoutY="416.0" text="Hour">
+         <font>
+            <Font size="14.0"/>
+         </font>
+      </Label>
+      <Label layoutX="205.0" layoutY="416.0" text="Minutes">
+         <font>
+            <Font size="14.0"/>
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="461.0" prefHeight="17.0" prefWidth="280.0" text="Location of event"
+             textAlignment="CENTER">
+         <font>
+            <Font size="14.0"/>
+         </font>
+      </Label>
+      <TextField fx:id="eventort" layoutX="30.0" layoutY="496.0" prefHeight="26.0" prefWidth="305.0"/>
+      <Separator layoutX="392.0" layoutY="1.0" orientation="VERTICAL" prefHeight="685.0" prefWidth="6.0"
+                 style="-fx-background-color: #000000;"/>
+      <Button fx:id="cancelButton" layoutX="99.0" layoutY="556.0" mnemonicParsing="false" onAction="#cancelButton"
+              prefHeight="49.0" prefWidth="162.0" style="-fx-background-radius: 5em; -fx-background-color: #8B0000;"
+              text="Cancel"/>
+   </AnchorPane>
+   <Label layoutX="432.0" layoutY="402.0" prefHeight="17.0" prefWidth="280.0" text="Reminder " textAlignment="CENTER">
+      <font>
+         <Font size="14.0"/>
+      </font>
+   </Label>
+   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="302.0" layoutY="14.0" prefHeight="17.0" prefWidth="280.0"
+          style="-fx-background-color: #FFFAFA;" text="Time Schueduler" textAlignment="CENTER">
+      <font>
+         <Font name="System Bold" size="24.0"/>
+      </font>
+   </Label>
+   <Label layoutX="442.0" layoutY="263.0" prefHeight="17.0" prefWidth="280.0" text="Priority" textAlignment="CENTER">
+      <font>
+         <Font size="14.0"/>
+      </font>
+   </Label>
+   <Label layoutX="432.0" layoutY="95.0" prefHeight="17.0" prefWidth="280.0" text="Participants" textAlignment="CENTER">
+      <font>
+         <Font size="14.0"/>
+      </font>
+   </Label>
+   <TextField fx:id="listParticipants" layoutX="432.0" layoutY="129.0" prefHeight="20.0" prefWidth="152.0"/>
+   <ChoiceBox fx:id="priority" layoutX="433.0" layoutY="307.0" prefWidth="150.0"/>
+   <ChoiceBox fx:id="reminderbox" layoutX="433.0" layoutY="441.0" prefWidth="150.0"/>
 </AnchorPane>

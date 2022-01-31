@@ -43,6 +43,9 @@ public class CalenderController implements Initializable {
     public User currentUser = LoginController.currentUser;
 
     @FXML
+    public Button cancelButton;
+
+    @FXML
     private TextField eventName;
     @FXML
     private DatePicker date;
