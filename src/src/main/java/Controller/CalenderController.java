@@ -36,8 +36,8 @@ Participants:
 
 public class CalenderController implements Initializable {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "much2less";
-    static final String PASS = "1234qwer";
+    static final String USER = "root";
+    static final String PASS = "Prabin2468";
     static final String QUERY = "INSERT INTO appointment (name,date,start,startminutes,end,endminutes,location,participants,priority,reminder,userid) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     public User currentUser = LoginController.currentUser;
@@ -76,6 +76,7 @@ public class CalenderController implements Initializable {
     private String locationAppointment;
     private String reminderAppointment;
     private String priorityAppointment;
+    private int userid;
     private ChoiceBox reminderboxAppointment;
     private String[] option = {"High","Medium","Low"};
     private String[] option2 = {"1 Week","3 Days","1 Hour","10 Minutes"};
@@ -107,6 +108,8 @@ public class CalenderController implements Initializable {
         listParticipantsAppointment = listParticipants.getText();
         priorityAppointment =priority.getValue();
         reminderAppointment= reminderbox.getValue();
+        userid = currentUser.getId();
+
 
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -122,6 +125,7 @@ public class CalenderController implements Initializable {
             stmt.setString(8, listParticipantsAppointment);
             stmt.setString(9, priorityAppointment);
             stmt.setString(10, reminderAppointment);
+            stmt.setInt(11,userid);
 
 
 
@@ -131,8 +135,9 @@ public class CalenderController implements Initializable {
         }
 
     }
+
     public void cancelButton(javafx.event.ActionEvent actionEvent) throws IOException {
-        Parent root = load(Objects.requireNonNull(getClass().getResource("optionMenu.fxml")));
+        Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("optionMenu.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("Welcome");
         scene = new Scene(root);

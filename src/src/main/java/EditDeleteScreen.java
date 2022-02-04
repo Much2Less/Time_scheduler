@@ -44,8 +44,8 @@ public class EditDeleteScreen implements Initializable{
 
 
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "much2less";
-    static final String PASS = "1234qwer";
+    static final String USER = "root";
+    static final String PASS = "Prabin2468";
     static final String QUERY = "SELECT name,date,participants,reminder FROM time_scheduler.appointment Where  userid = ?";
     static final String SELECT_FROM_Appointment = "SELECT name,date,participants,reminder FROM appointment";
 
@@ -82,7 +82,7 @@ public class EditDeleteScreen implements Initializable{
             //Saving Users from the database in an ArrayList
             while (rs.next()) {
                 userAppoList.add(new Appointments(
-                        rs.getString("name"),
+                        rs.getString(2),
                         Date.valueOf(rs.getString("date")),
                         rs.getString("participants"),
                         rs.getString("reminder")));
