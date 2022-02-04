@@ -31,6 +31,7 @@ public class AdminController implements Initializable {
 
     private final ArrayList<User> userArrayList = new ArrayList<>();
 
+    static private User selectedUser;
     private int selectedUserIndex;
 
     //List declarations
@@ -45,8 +46,8 @@ public class AdminController implements Initializable {
 
     @FXML
     private Button cancelAdmin;
-
-
+    @FXML
+    private Button submitAdmin;
 
     @Override
     public void initialize(URL location, ResourceBundle resourceBundle) {
@@ -82,7 +83,10 @@ public class AdminController implements Initializable {
                         + userArrayList.get(i).getPassword());
             }
 
-            userListView.setOnMouseClicked(event -> selectedUserIndex = userListView.getSelectionModel().getSelectedIndex());
+            userListView.setOnMouseClicked(event -> {
+                selectedUser = userArrayList.get(userListView.getSelectionModel().getSelectedIndex());
+                selectedUserIndex = userListView.getSelectionModel().getSelectedIndex();
+            });
 
 
         } catch (SQLException e) {
@@ -91,11 +95,11 @@ public class AdminController implements Initializable {
 
     }
 
-    public void deleteUser(int index) {
+    public void deleteUser(User user) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement stmt = conn.prepareStatement(DELETE_USER)
         ) {
-            stmt.setInt(1, userArrayList.get(index).getId());
+            stmt.setInt(1, user.getId());
             stmt.executeUpdate();
 
         } catch (SQLException throwable) {
@@ -104,14 +108,10 @@ public class AdminController implements Initializable {
 
     }
 
-    public void switchToLogin(javafx.event.ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login.fxml")));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        stage.setTitle("SignUp");
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void editUser(int index) {
+
     }
+
 
     public void confirmationEvent(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this User?");
@@ -119,12 +119,8 @@ public class AdminController implements Initializable {
         //Handles the confirmation of the Confirmation Prompt
         alert.setOnCloseRequest(event -> {
                 try {
-                    deleteUser(selectedUserIndex);
+                    deleteUser(selectedUser);
                     userListView.getItems().remove(selectedUserIndex);
-                    /*
-                    selectFromLogin();
-
-                     */
                 }
                 catch (Exception e) {
                     e.printStackTrace();
