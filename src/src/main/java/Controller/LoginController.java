@@ -25,8 +25,8 @@ import static javafx.fxml.FXMLLoader.load;
 public class
 LoginController extends Application {
 	static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-	static final String USER = "root";
-	static final String PASS = "Passwort123";
+	static final String USER = "much2less";
+	static final String PASS = "1234qwer";
 	static final String QUERY = "SELECT * FROM login WHERE username = ? AND password = ?";
 
 	@FXML
