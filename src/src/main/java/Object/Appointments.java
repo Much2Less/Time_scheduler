@@ -7,7 +7,7 @@ import java.sql.Date;
 public class Appointments {
     private int id;
     private String name;
-    private DatePicker date;
+    private Date date;
     private int start;
     private int startminutes;
     private int end;
@@ -20,19 +20,23 @@ public class Appointments {
 
 
 
-    public Appointments(int id, String name,DatePicker date,int start,int startminutes,int end,int endminutes, String location,String participant,String priority,String reminder) {
+    public Appointments(int id, String name,Date date,int start,int startminutes,int end,int endminutes, String location,String participants,String priority,String reminder) {
         this.id = id;
         this.name = name;
         this.date = date;
         this.start = startminutes;
         this.endminutes = endminutes;
         this.location = location;
-        this.participants = participant;
+        this.participants = participants;
         this.priority = priority;
         this.reminder = reminder;
     }
 
-    public Appointments(String string, Date date, String participants, String reminder) {
+    public Appointments(String name, Date date, String participants, String reminder) {
+        this.name = name;
+        this.date = date;
+        this.participants = participants;
+        this.reminder = reminder;
     }
 
 
@@ -52,11 +56,11 @@ public class Appointments {
         this.name = name;
     }
 
-    public DatePicker getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(DatePicker date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

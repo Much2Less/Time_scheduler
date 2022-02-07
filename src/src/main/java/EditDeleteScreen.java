@@ -32,9 +32,9 @@ public class EditDeleteScreen implements Initializable{
     @FXML
     private Button  SearchButton;
     @FXML
-    private Button buttonCancel ;
+    private Button cancelButton;
 
-    private final ArrayList<Appointments> userAppoList = new ArrayList<>();
+    private final ArrayList<Appointments> appointmentsArrayList = new ArrayList<>();
 
     private int selectedUserIndex;
     private int userid;
@@ -46,13 +46,13 @@ public class EditDeleteScreen implements Initializable{
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
     static final String USER = "much2less";
     static final String PASS = "1234qwer";
-    static final String QUERY = "SELECT name,date,participants,reminder FROM time_scheduler.appointment Where  userid = ?";
+    static final String QUERY = "SELECT `name`,`date`,`participants`,`reminder` FROM appointment Where  userid = ?";
     static final String SELECT_FROM_Appointment = "SELECT name,date,participants,reminder FROM appointment";
 
 
 
 
-    public void switchToCalender(ActionEvent actionEvent) throws IOException {
+    public void switchToOptions(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(this.getClass().getResource("optionMenu.fxml")));
         this.stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         this.stage.setTitle("Welcome to Time Scheduler");
@@ -64,12 +64,12 @@ public class EditDeleteScreen implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        selectfromappoint();
+        selectFromAppointment();
 
 
     }
 
-    public void selectfromappoint(){
+    public void selectFromAppointment(){
 
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -81,21 +81,21 @@ public class EditDeleteScreen implements Initializable{
 
             //Saving Users from the database in an ArrayList
             while (rs.next()) {
-                userAppoList.add(new Appointments(
-                        rs.getString("name"),
-                        Date.valueOf(rs.getString("date")),
-                        rs.getString("participants"),
-                        rs.getString("reminder")));
+                appointmentsArrayList.add(new Appointments(
+                        rs.getString(1),
+                        Date.valueOf(rs.getString(2)),
+                        rs.getString(3),
+                        rs.getString(4)));
             }
 
 
             //Builds a string with information from every user
-            for (int i = 0; i < userAppoList.size(); i++) {
+            for (Appointments appointments : appointmentsArrayList) {
                 myListview.getItems().add(
-                            userAppoList.get(i).getName() + " "
-                                + userAppoList.get(i).getDate() + " "
-                                + userAppoList.get(i).getParticipants() + " "
-                                + userAppoList.get(i).getReminder());
+                        appointments.getName() + " "
+                                + appointments.getDate() + " "
+                                + appointments.getParticipants() + " "
+                                + appointments.getReminder());
             }
 
             myListview.setOnMouseClicked(event -> selectedUserIndex = myListview.getSelectionModel().getSelectedIndex());
@@ -105,52 +105,7 @@ public class EditDeleteScreen implements Initializable{
             e.printStackTrace();
         }
 
-
-
     }
-        /*
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement(QUERY)
-
-        ) {
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()){
-                String name = rs.getString("Name");
-                Date date = Date.valueOf(rs.getString("date"));
-                String participants = rs.getString("participants");
-
-                String listOut ="Event Name "+ name +" on " + date+" " + " participants "+participants ;
-
-                myListview.getItems().add(listOut);
-/*
-                myListview.getSelectionModel().getSelectedItems().addListener(new ChangeListener<String>() {
-                    @Override
-                    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-
-                    }
-                });
-          myListview.setOnMouseClicked(event -> {
-
-                    String selectedItem = myListview.getSelectionModel().getSelectedItem().toString();
-
-                });
-        */
-
- /*
-                }
-            }
-
-
-
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
-  */
 }
 
 

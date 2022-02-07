@@ -76,13 +76,13 @@ public class AdminController implements Initializable {
             }
 
             //Builds a string with information from every user
-            for (int i = 0; i < userArrayList.size(); i++) {
+            for (User user : userArrayList) {
                 userListView.getItems().add(
-                        userArrayList.get(i).getId() + " "
-                        + userArrayList.get(i).getUsername() + " "
-                        + userArrayList.get(i).getEmail() + " "
-                        + userArrayList.get(i).getAdmin() + " "
-                        + userArrayList.get(i).getPassword());
+                        user.getId() + " "
+                                + user.getUsername() + " "
+                                + user.getEmail() + " "
+                                + user.getAdmin() + " "
+                                + user.getPassword());
             }
 
             userListView.setOnMouseClicked(event -> {

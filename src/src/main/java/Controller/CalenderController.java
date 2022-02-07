@@ -108,14 +108,15 @@ public class CalenderController implements Initializable {
         ) {
             stmt.setString(1, eventNameAppointment);
             stmt.setString(2, String.valueOf(dateAppointment));
-            stmt.setString(3, hourAppointment);
-            stmt.setString(4, minutesAppointment);
-            stmt.setString(5, durationHourAppointment);
-            stmt.setString(6, durationMinutesAppointment);
+            stmt.setInt(3, Integer.parseInt(hourAppointment));
+            stmt.setInt(4, Integer.parseInt(minutesAppointment));
+            stmt.setInt(5, Integer.parseInt(durationHourAppointment));
+            stmt.setInt(6, Integer.parseInt(durationMinutesAppointment));
             stmt.setString(7, locationAppointment);
             stmt.setString(8, listParticipantsAppointment);
             stmt.setString(9, priorityAppointment);
             stmt.setString(10, reminderAppointment);
+            stmt.setInt(11, currentUser.getId());
 
 
 

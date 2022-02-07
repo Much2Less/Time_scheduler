@@ -11,12 +11,14 @@
                <children>
                   <Label layoutX="62.0" layoutY="28.0" prefHeight="32.0" prefWidth="309.0" text="Search your Appointment" />
                   <Button layoutX="450.0" layoutY="32.0" mnemonicParsing="false" text="Search" />
-                  <ListView fx:id="myListview" layoutX="37.0" layoutY="68.0" prefHeight="360.0" prefWidth="558.0" />
+                  <ListView fx:id="myListview" layoutX="37.0" layoutY="68.0" prefHeight="360.0" prefWidth="517.0" />
+                  <Button id="editButton" layoutX="566.0" layoutY="68.0" mnemonicParsing="false" text="Edit" />
+                  <Button id="deleteButton" layoutX="633.0" layoutY="68.0" mnemonicParsing="false" text="Delete" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Button fx:id="buttonCancel" layoutX="14.0" layoutY="23.0" mnemonicParsing="false" onAction="#switchToCalender" text="Cancel" />
+                  <Button fx:id="cancelButton" layoutX="14.0" layoutY="23.0" mnemonicParsing="false" onAction="#switchToOptions" text="Cancel" />
                </children>
             </AnchorPane>
         </items>
