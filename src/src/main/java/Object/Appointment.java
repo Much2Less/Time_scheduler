@@ -4,7 +4,7 @@ import javafx.scene.control.DatePicker;
 
 import java.sql.Date;
 
-public class Appointments {
+public class Appointment {
     private int id;
     private String name;
     private Date date;
@@ -20,7 +20,7 @@ public class Appointments {
 
 
 
-    public Appointments(int id, String name,Date date,int start,int startminutes,int end,int endminutes, String location,String participants,String priority,String reminder) {
+    public Appointment(int id, String name, Date date, int start, int startminutes, int end, int endminutes, String location, String participants, String priority, String reminder) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -32,7 +32,7 @@ public class Appointments {
         this.reminder = reminder;
     }
 
-    public Appointments(String name, Date date, String participants, String reminder) {
+    public Appointment(String name, Date date, String participants, String reminder) {
         this.name = name;
         this.date = date;
         this.participants = participants;
