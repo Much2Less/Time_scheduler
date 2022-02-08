@@ -2,6 +2,7 @@ package Controller;
 
 import Object.User;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -86,8 +87,8 @@ public class AdminController implements Initializable {
             }
 
             userListView.setOnMouseClicked(event -> {
-                selectedUser = userArrayList.get(userListView.getSelectionModel().getSelectedIndex());
                 selectedUserIndex = userListView.getSelectionModel().getSelectedIndex();
+                selectedUser = userArrayList.get(selectedUserIndex);
             });
 
 
@@ -162,6 +163,7 @@ public class AdminController implements Initializable {
             TextField emailField = new TextField();
             TextField adminField = new TextField();
 
+
             //Adds a grid to add the text fields and labels to the content field of the dialog
             GridPane gridPane = new GridPane();
             gridPane.add(usernameLabel, 1, 1);
@@ -198,6 +200,9 @@ public class AdminController implements Initializable {
                             userArrayList.get(selectedUserIndex).setUsername(usernameField.getText());
                             userArrayList.get(selectedUserIndex).setEmail(emailField.getText());
                             userArrayList.get(selectedUserIndex).setAdmin(Integer.parseInt(adminField.getText()));
+                            userListView.getItems().set(selectedUserIndex, usernameField.getText());
+                            userListView.getItems().set(selectedUserIndex, emailField.getText());
+                            userListView.getItems().set(selectedUserIndex, adminField.getText());
                         } catch (SQLException throwable) {
                             throwable.printStackTrace();
                         }

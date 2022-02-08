@@ -126,6 +126,7 @@ public class CalenderController implements Initializable {
         }
 
     }
+
     public void cancelButton(javafx.event.ActionEvent actionEvent) throws IOException {
         switchToOptionMenu(actionEvent);
     }
