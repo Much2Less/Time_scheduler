@@ -127,42 +127,6 @@ public class RegisterController {
 
 
 
-    //TODO checkRegisterData: Should check if Username is not too long, E-Mail has correct format and Password is strong enough
-    //The Method should also build a String with all errors that occured when registering
-    /*
-        Example:
-        Username too short
-        Not a real E-Mail
-        Password has no numbers
-     */
-
-   /* private boolean checkRegisterData(String username, String email, String password) {
-        boolean return_val = false;
-
-        if (username.length() < 4) {
-            return_val = true;
-            error.append("Username is too short!\n");
-        }
-        if (username.length() >= 100) {
-            return_val = true;
-            error.append("Username is too long!\n");
-        }
-
-        Pattern p = Pattern.compile("^[A-Za-z0-9]", Pattern.CASE_INSENSITIVE);
-        Matcher m = p.matcher(username);
-        boolean res = m.find();
-        if (res) {
-            return_val = true;
-            error.append("Username has special characters!\n");
-        }
-
-
-
-        return return_val;
-    }
-
-}*/
-
     private boolean isValidData(String username, String email, String password) {
         boolean validData = true;
 
