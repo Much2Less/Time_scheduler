@@ -36,11 +36,14 @@ Participants:
 
 public class CalenderController implements Initializable {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "root";
-    static final String PASS = "Prabin2468";
+    static final String USER = "much2less";
+    static final String PASS = "1234qwer";
     static final String QUERY = "INSERT INTO appointment (name,date,start,startminutes,end,endminutes,location,participants,priority,reminder,userid) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     public User currentUser = LoginController.currentUser;
+
+    @FXML
+    public Button cancelButton;
 
     @FXML
     private TextField eventName;
@@ -76,8 +79,7 @@ public class CalenderController implements Initializable {
     private String locationAppointment;
     private String reminderAppointment;
     private String priorityAppointment;
-    private int userid;
-    private ChoiceBox reminderboxAppointment;
+    //private ChoiceBox reminderboxAppointment;
     private String[] option = {"High","Medium","Low"};
     private String[] option2 = {"1 Week","3 Days","1 Hour","10 Minutes"};
 
@@ -88,16 +90,7 @@ public class CalenderController implements Initializable {
     public CalenderController() {
     }
 
-    public void switchToMenu(javafx.event.ActionEvent actionEvent) throws IOException {
-            Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("optionMenu.fxml")));
-            stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-            stage.setTitle("Welcome");
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            }
-
-    public void creatAppointment(ActionEvent actionEvent) throws IOException, SQLException, NoSuchAlgorithmException {
+    public void creatAppointment(ActionEvent actionEvent) throws IOException, SQLException {
         eventNameAppointment = eventName.getText();
         LocalDate dateAppointment = date.getValue();
         hourAppointment = hour.getText();
@@ -108,35 +101,37 @@ public class CalenderController implements Initializable {
         listParticipantsAppointment = listParticipants.getText();
         priorityAppointment =priority.getValue();
         reminderAppointment= reminderbox.getValue();
-        userid = currentUser.getId();
-
 
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement(QUERY);
+             PreparedStatement stmt = conn.prepareStatement(QUERY)
         ) {
             stmt.setString(1, eventNameAppointment);
             stmt.setString(2, String.valueOf(dateAppointment));
-            stmt.setString(3, hourAppointment);
-            stmt.setString(4, minutesAppointment);
-            stmt.setString(5, durationHourAppointment);
-            stmt.setString(6, durationMinutesAppointment);
+            stmt.setInt(3, Integer.parseInt(hourAppointment));
+            stmt.setInt(4, Integer.parseInt(minutesAppointment));
+            stmt.setInt(5, Integer.parseInt(durationHourAppointment));
+            stmt.setInt(6, Integer.parseInt(durationMinutesAppointment));
             stmt.setString(7, locationAppointment);
             stmt.setString(8, listParticipantsAppointment);
             stmt.setString(9, priorityAppointment);
             stmt.setString(10, reminderAppointment);
-            stmt.setInt(11,userid);
+            stmt.setInt(11, currentUser.getId());
 
 
 
             stmt.executeUpdate();
-            switchToMenu(actionEvent);
+            switchToOptionMenu(actionEvent);
             System.out.println("Success!");
         }
 
     }
 
     public void cancelButton(javafx.event.ActionEvent actionEvent) throws IOException {
+        switchToOptionMenu(actionEvent);
+    }
+
+    private void switchToOptionMenu(ActionEvent actionEvent) throws IOException {
         Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("optionMenu.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("Welcome");
