@@ -1,14 +1,13 @@
 package Controller;
 
-import Object.*;
-
+import Object.DBData;
+import Object.HashedPassword;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -16,18 +15,17 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Objects;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
- * This class is for register user
+ * This class controls the registration of users
+ * It also checks if the Input data is legal for upload
+ * If the registration is canceled you will be switched back to the login screen
  */
 
 public class RegisterController {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "root";
-    static final String PASS = "Passwort123";
+    static final String USER = DBData.getDBUser();
+    static final String PASS = DBData.getDBPassword();
     static final String QUERY = "INSERT INTO login (username,email,password,admin) VALUES (?, ?, ?, 0)";
 
     @FXML
@@ -36,49 +34,32 @@ public class RegisterController {
     private TextField emailRegister;
     @FXML
     private TextField passwordRegister;
-    @FXML
-    private Label errorBoxRegister;
 
-    /**
-     * param declarations
-     */
-    private String username;
-    private String email;
-    private String password;
-
-    private StringBuilder error = new StringBuilder();
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    private final StringBuilder error = new StringBuilder();
 
     /**
      * This method is for switching the screen to login after clicking register button
-     * @param actionEvent
-     * @throws IOException
      */
 
     public void switchToLogin(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login.fxml")));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("SignUp");
-        scene = new Scene(root);
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
     /**
-     * This method is for register the new user into database
+     * This method gets the input of the TextField and uploads it to the database
+     * It also uses isValidData() to check if the input is legal
      * @param actionEvent to change the screen by clicking a button
-     * @throws IOException
-     * @throws NoSuchAlgorithmException
-     * @throws SQLException
      */
 
-    public void registerUser(javafx.event.ActionEvent actionEvent) throws IOException, NoSuchAlgorithmException, SQLException {
-        username = usernameRegister.getText();
-        email = emailRegister.getText();
-        password = passwordRegister.getText();
+    public void registerUser(javafx.event.ActionEvent actionEvent) throws IOException, NoSuchAlgorithmException {
+        String username = usernameRegister.getText();
+        String email = emailRegister.getText();
+        String password = passwordRegister.getText();
 
         System.out.println(isValidData(username, email, password));
 
@@ -109,9 +90,9 @@ public class RegisterController {
     }
 
     /**
-     * This method is for checking if user is already registered in database
-     * @param email email address for register user
-     * @return boolean value if user is in database or not
+     * This method checks if the user is already registered
+     * @param email email address of the user who wants to register
+     * @return boolean true if user is already registered
      */
 
     public boolean checkUser(String email) {
@@ -132,7 +113,7 @@ public class RegisterController {
                 {
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                     errorAlert.setHeaderText("ERROR");
-                    errorAlert.setContentText("Process failed, please register again");
+                    errorAlert.setContentText("E-Mail already exists!");
                     errorAlert.showAndWait();
                     usernameExists = true;
 
@@ -145,18 +126,22 @@ public class RegisterController {
         }
         catch (SQLException e)
         {
-            System.out.println("SQL Exception: "+ e.toString());
+            System.out.println("SQL Exception: "+ e);
         }
 
         return usernameExists;
     }
 
     /**
-     * This method is for checking if the input from the user is valid with our rules for register
-     * @param username choosed username of user
-     * @param email choosed email of user
-     * @param password choosed password from user
-     * @return if data is valid with our rules
+     * This method is for checking if the input from the user is legal after our own standards
+     * It checks if the username is at least 5 characters long, not longer than 29 characters and doesn't include special characters
+     * It checks if the email is in the correct format
+     * It checks if the password contains at least one special character and no white spaces
+     * Finally if an input is illegal, an alert appears which prints all broken rules
+     * @param username chose username of user
+     * @param email chose email of user
+     * @param password chose password from user
+     * @return returns false if username, email or password is illegal
      */
 
     private boolean isValidData(String username, String email, String password) {
@@ -188,6 +173,7 @@ public class RegisterController {
             validData = false;
 
         }
+/*
         if(!password.matches(regex3)) {
             errorMsg.append("Password has no correct form (At least one upper and lowercase alphabet, one special character and between 6-20 characters");
 
@@ -197,6 +183,7 @@ public class RegisterController {
             validData = false;
 
         }
+*/
 
         if(!validData) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);

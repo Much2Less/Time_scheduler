@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import Object.Appointment;
-import Object.User;
+
+import Object.*;
 
 import javax.swing.text.Document;
 
@@ -58,16 +58,14 @@ public class EditDeleteScreen implements Initializable {
      */
 
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "root";
-    static final String PASS = "Passwort123";
+    static final String USER = DBData.getDBUser();
+    static final String PASS = DBData.getDBPassword();
     //static final String SELECT_APPOINTMENT = "SELECT `name`,`date`,`participants`,`reminder` FROM appointment Where  userid = ?";
     static final String SELECT_APPOINTMENT = "SELECT * FROM appointment Where  userid = ?";
     static final String DELETE_APPOINTMENT = "DELETE FROM appointment WHERE id = ?";
 
     /**
-     * This method is for switching to the calender screen
-     * @param actionEvent
-     * @throws IOException
+     * This method sends you to the options screen
      */
 
     public void switchToOptions(ActionEvent actionEvent) throws IOException {
@@ -88,7 +86,10 @@ public class EditDeleteScreen implements Initializable {
     }
 
     /**
-     * This method is for selecting an existing appointment and to manipulate them
+     * Connects with the database to download every appointment and
+     * constructing every appointment as a unique object to store them into an ArrayList.
+     * It then constructs a string for every appointment and adds it to the ListView.
+     * To be able to select a appointment from the ListView, the method also creates an EventHandler.
      */
 
     public void selectFromAppointment() {
@@ -160,11 +161,11 @@ public class EditDeleteScreen implements Initializable {
     }
 
     /**
-     * This method is for asking the admin if he is sure to delete a user from database
+     * Asks if you really want to delete the selected appointment
      */
 
     public void confirmationEvent() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this User?");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this Appointment?");
         alert.show();
         //Handles the confirmation of the Confirmation Prompt
         alert.setOnCloseRequest(event -> {
@@ -180,11 +181,11 @@ public class EditDeleteScreen implements Initializable {
     }
 
     //TODO
-    public void editUser() {
+    public void editAppointment() {
         if (appointmentListView.getSelectionModel().isEmpty()) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("ERROR");
-            errorAlert.setContentText("You have to select a user!");
+            errorAlert.setContentText("You have to select an appointment!");
             errorAlert.showAndWait();
         }
 

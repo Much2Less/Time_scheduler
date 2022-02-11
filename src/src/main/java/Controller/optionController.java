@@ -1,27 +1,25 @@
 package Controller;
-import Object.*;
-import com.itextpdf.text.*;
-import com.sun.javafx.font.FontFactory;
+
+import Object.Appointment;
+import Object.DBData;
+import Object.User;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import javax.swing.event.DocumentListener;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Objects;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-
-import com.itextpdf.text.Document;
-import com.itextpdf.text.pdf.PdfWriter;
 
 /**
  * This class is for handling after the login part, the user is able
@@ -31,22 +29,19 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class optionController {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "root";
-    static final String PASS = "Passwort123";
+    static final String USER = DBData.getDBUser();
+    static final String PASS = DBData.getDBPassword();
     static final String SELECT_APPOINTMENT = "SELECT * FROM appointment Where userid = ?";
 
     private Stage stage;
     private Scene scene;
-    private int userid;
 
 
     public User currentUser = LoginController.currentUser;
     private ArrayList<Appointment> appointmentArrayList = new ArrayList<>();
 
     /**
-     * This method is for the start screen
-     * @param actionEvent
-     * @throws IOException
+     * This method sends you back to the login screen
      */
 
     public void switchToLogin(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -59,9 +54,7 @@ public class optionController {
     }
 
     /**
-     * This method is for switching to calender menu is username and password were filled in correctly
-     * @param actionEvent
-     * @throws IOException
+     * This method sends you to the creating screen for a new appointment
      */
 
     public void switchToCalender(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -74,9 +67,7 @@ public class optionController {
     }
 
     /**
-     * This method is for switching to edit or delete screen to manipulate appointments
-     * @param actionEvent
-     * @throws IOException
+     * This method sends you to the edit/delete screen
      */
 
     public void switchToEditDeleteScreen(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -89,9 +80,8 @@ public class optionController {
     }
 
     /**
-     * This method is for exporting the appointments from logged user by a pdf file
-     * @throws FileNotFoundException
-     * @throws DocumentException
+     * This method is exporting every appointment from the currently logged in user
+     * into a pdf file.
      */
 
 
@@ -144,10 +134,8 @@ public class optionController {
             System.out.println("Finished");
 
 
-        } catch (SQLException e) {
+        } catch (SQLException | DocumentException e) {
             e.printStackTrace();
-                } catch (DocumentException e) {
-            e.printStackTrace();
-        }
+                }
     }
 }

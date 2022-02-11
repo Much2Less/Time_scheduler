@@ -28,9 +28,10 @@ import static javafx.fxml.FXMLLoader.load;
 
 public class
 LoginController extends Application {
+
 	static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-	static final String USER = "root";
-	static final String PASS = "Passwort123";
+	static final String USER = DBData.getDBUser();
+	static final String PASS = DBData.getDBPassword();
 	static final String QUERY = "SELECT * FROM login WHERE username = ? AND password = ?";
 
 	@FXML
@@ -68,8 +69,6 @@ LoginController extends Application {
 
 	/**
 	 * This method is for switching to register screen by clicking on register button in start screen
-	 * @param actionEvent
-	 * @throws IOException
 	 */
 
 	public void switchToRegister(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -82,10 +81,7 @@ LoginController extends Application {
 	}
 
 	/**
-	 * This method is for switching to calender menu if username und password were correctly filled in
-	 * @param actionEvent
-	 * @throws IOException
-	 * @throws NoSuchAlgorithmException
+	 * This method is for switching to calendar menu if username und password were correctly filled in
 	 */
 
 	public void switchToCalender(javafx.event.ActionEvent actionEvent) throws IOException, NoSuchAlgorithmException {
@@ -136,8 +132,6 @@ LoginController extends Application {
 
 	/**
 	 * This method is only for user with admin rights
-	 * @param actionEvent
-	 * @throws IOException
 	 */
 
 	public void switchToAdmin(ActionEvent actionEvent) throws IOException {
