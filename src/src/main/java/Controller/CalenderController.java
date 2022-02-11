@@ -34,10 +34,14 @@ Participants:
 - Participants need multiple input fields for multiple inputs. An add button is needed to add more input fields!
  */
 
+/**
+ * This class is for creating appointments and to save them in database
+ */
+
 public class CalenderController implements Initializable {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "much2less";
-    static final String PASS = "1234qwer";
+    static final String USER = "root";
+    static final String PASS = "Passwort123";
     static final String QUERY = "INSERT INTO appointment (name,date,start,startminutes,end,endminutes,location,participants,priority,reminder,userid) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     public User currentUser = LoginController.currentUser;
@@ -87,8 +91,16 @@ public class CalenderController implements Initializable {
             private Stage stage;
             private Scene scene;
 
+
     public CalenderController() {
     }
+
+    /**
+     * This method is for creating an appointment and to put the data into database
+     * @param actionEvent
+     * @throws IOException
+     * @throws SQLException
+     */
 
     public void creatAppointment(ActionEvent actionEvent) throws IOException, SQLException {
         eventNameAppointment = eventName.getText();
@@ -127,9 +139,21 @@ public class CalenderController implements Initializable {
 
     }
 
+    /**
+     * This method is to click on the cancel button
+     * @param actionEvent
+     * @throws IOException
+     */
+
     public void cancelButton(javafx.event.ActionEvent actionEvent) throws IOException {
         switchToOptionMenu(actionEvent);
     }
+
+    /**
+     * This method is to switch from create appointment screen to calender screen
+     * @param actionEvent
+     * @throws IOException
+     */
 
     private void switchToOptionMenu(ActionEvent actionEvent) throws IOException {
         Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("optionMenu.fxml")));

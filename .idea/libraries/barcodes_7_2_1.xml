@@ -1,0 +1,27 @@
+<component name="libraryTable">
+  <library name="barcodes-7.2.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../iText/barcodes-7.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../iText/commons-7.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../iText/forms-7.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../iText/io-7.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../iText/kernel-7.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../iText/layout-7.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../iText/pdfa-7.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../iText/pdftest-7.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../iText/sign-7.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../iText/styled-xml-parser-7.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../iText/svg-7.2.1.jar!/" />
+      <root url="file://$PROJECT_DIR$" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/login/Time_scheduler/src/main/src/main/java" />
+      <root url="file://$PROJECT_DIR$/login/Time_scheduler/src/src/main/java" />
+      <root url="file://$PROJECT_DIR$/login/src/main/java" />
+      <root url="file://$PROJECT_DIR$/src/demo/src/main/java" />
+      <root url="file://$PROJECT_DIR$/src/main/src/main/java" />
+      <root url="file://$PROJECT_DIR$/src/src/main/java" />
+    </SOURCES>
+  </library>
+</component>

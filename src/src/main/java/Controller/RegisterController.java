@@ -20,6 +20,10 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This class is for register user
+ */
+
 public class RegisterController {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
     static final String USER = "root";
@@ -35,6 +39,9 @@ public class RegisterController {
     @FXML
     private Label errorBoxRegister;
 
+    /**
+     * param declarations
+     */
     private String username;
     private String email;
     private String password;
@@ -45,6 +52,12 @@ public class RegisterController {
     private Scene scene;
     private Parent root;
 
+    /**
+     * This method is for switching the screen to login after clicking register button
+     * @param actionEvent
+     * @throws IOException
+     */
+
     public void switchToLogin(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -53,6 +66,14 @@ public class RegisterController {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * This method is for register the new user into database
+     * @param actionEvent to change the screen by clicking a button
+     * @throws IOException
+     * @throws NoSuchAlgorithmException
+     * @throws SQLException
+     */
 
     public void registerUser(javafx.event.ActionEvent actionEvent) throws IOException, NoSuchAlgorithmException, SQLException {
         username = usernameRegister.getText();
@@ -87,6 +108,11 @@ public class RegisterController {
         }
     }
 
+    /**
+     * This method is for checking if user is already registered in database
+     * @param email email address for register user
+     * @return boolean value if user is in database or not
+     */
 
     public boolean checkUser(String email) {
         boolean usernameExists = false;
@@ -125,7 +151,13 @@ public class RegisterController {
         return usernameExists;
     }
 
-
+    /**
+     * This method is for checking if the input from the user is valid with our rules for register
+     * @param username choosed username of user
+     * @param email choosed email of user
+     * @param password choosed password from user
+     * @return if data is valid with our rules
+     */
 
     private boolean isValidData(String username, String email, String password) {
         boolean validData = true;

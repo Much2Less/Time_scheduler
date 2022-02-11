@@ -23,6 +23,10 @@ import java.io.FileOutputStream;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.PdfWriter;
 
+/**
+ * This class is for handling after the login part, the user is able
+ * to create appointments, edit/delete them or to export the appointments in a pdf file
+ */
 
 
 public class optionController {
@@ -39,6 +43,11 @@ public class optionController {
     public User currentUser = LoginController.currentUser;
     private ArrayList<Appointment> appointmentArrayList = new ArrayList<>();
 
+    /**
+     * This method is for the start screen
+     * @param actionEvent
+     * @throws IOException
+     */
 
     public void switchToLogin(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login.fxml")));
@@ -49,6 +58,12 @@ public class optionController {
         stage.show();
     }
 
+    /**
+     * This method is for switching to calender menu is username and password were filled in correctly
+     * @param actionEvent
+     * @throws IOException
+     */
+
     public void switchToCalender(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("calender.fxml")));
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -58,6 +73,12 @@ public class optionController {
         stage.show();
     }
 
+    /**
+     * This method is for switching to edit or delete screen to manipulate appointments
+     * @param actionEvent
+     * @throws IOException
+     */
+
     public void switchToEditDeleteScreen(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("editDeleteScreen.fxml")));
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -66,6 +87,12 @@ public class optionController {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * This method is for exporting the appointments from logged user by a pdf file
+     * @throws FileNotFoundException
+     * @throws DocumentException
+     */
 
 
     public void exportPdf() throws FileNotFoundException, DocumentException {

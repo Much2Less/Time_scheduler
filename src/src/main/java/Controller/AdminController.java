@@ -26,8 +26,8 @@ import static javafx.fxml.FXMLLoader.load;
 
 public class AdminController implements Initializable {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "much2less";
-    static final String PASS = "1234qwer";
+    static final String USER = "root";
+    static final String PASS = "Passwort123";
     static final String SELECT_FROM_LOGIN = "SELECT * FROM login";
     static final String DELETE_USER = "DELETE FROM login WHERE id = ?";
     static final String EDIT_USER = "UPDATE login SET username = ?, email = ?, admin = ? WHERE id = ?";

@@ -22,11 +22,15 @@ import Object.*;
 
 import static javafx.fxml.FXMLLoader.load;
 
+/**
+ * This class is for login to the application
+ */
+
 public class
 LoginController extends Application {
 	static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
 	static final String USER = "root";
-	static final String PASS = "1234qwer";
+	static final String PASS = "Passwort123";
 	static final String QUERY = "SELECT * FROM login WHERE username = ? AND password = ?";
 
 	@FXML
@@ -43,6 +47,11 @@ LoginController extends Application {
 		launch(args);
 	}
 
+	/**
+	 * This method is for starting the first screen by running the application
+	 * @param stage setting up new screen
+	 */
+
 	@Override
 	public void start(Stage stage) {
 		try {
@@ -57,6 +66,12 @@ LoginController extends Application {
 		}
 	}
 
+	/**
+	 * This method is for switching to register screen by clicking on register button in start screen
+	 * @param actionEvent
+	 * @throws IOException
+	 */
+
 	public void switchToRegister(javafx.event.ActionEvent actionEvent) throws IOException {
 		Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("register.fxml")));
 		stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -65,6 +80,14 @@ LoginController extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
+
+	/**
+	 * This method is for switching to calender menu if username und password were correctly filled in
+	 * @param actionEvent
+	 * @throws IOException
+	 * @throws NoSuchAlgorithmException
+	 */
+
 	public void switchToCalender(javafx.event.ActionEvent actionEvent) throws IOException, NoSuchAlgorithmException {
 		String username = usernameLogin.getText();
 		String password = passwordLogin.getText();
@@ -110,6 +133,12 @@ LoginController extends Application {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * This method is only for user with admin rights
+	 * @param actionEvent
+	 * @throws IOException
+	 */
 
 	public void switchToAdmin(ActionEvent actionEvent) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("admin.fxml"));

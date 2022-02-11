@@ -54,5 +54,4 @@ public class User {
     public void setAdmin(int admin) {
         this.admin = admin;
     }
-
 }
