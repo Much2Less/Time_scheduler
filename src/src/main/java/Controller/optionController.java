@@ -22,8 +22,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * This class is for handling after the login part, the user is able
- * to create appointments, edit/delete them or to export the appointments in a pdf file
+ * This class is for controlling the option menu.
+ * In the option menu you can get to the create or edit/delete appointment screen.
+ * You can also export all appointments into a pdf.
  */
 
 
@@ -80,8 +81,8 @@ public class optionController {
     }
 
     /**
-     * This method is exporting every appointment from the currently logged in user
-     * into a pdf file.
+     * This method is exporting every appointment from the currently
+     * logged on user into a pdf file.
      */
 
 

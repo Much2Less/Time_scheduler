@@ -4,11 +4,20 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * A class for hashing a string of characters, preferably a password
+ */
 public class HashedPassword {
 
     private byte[] hashEncoded;
     private String hashString;
 
+    /**
+     * Creates a new HashedPassword Object which stores
+     * the encoded hash of a string in a byte array and builds a fully usable hashed string
+     * Hashing Method: SHA-256
+      * @param password string to be hashed
+     */
     public HashedPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
         byte[] encodedHash = messageDigest.digest(password.getBytes(StandardCharsets.UTF_8));
@@ -25,19 +34,18 @@ public class HashedPassword {
         this.hashString = hexString.toString();
     }
 
+    /**
+     * Returns the encoded string as a byte array
+     */
     public byte[] getHashEncoded() {
         return hashEncoded;
     }
 
-    public void setHashEncoded(byte[] hashEncoded) {
-        this.hashEncoded = hashEncoded;
-    }
-
+    /**
+     * Returns the hashed string
+     */
     public String getHashString() {
         return hashString;
     }
 
-    public void setHashString(String hashString) {
-        this.hashString = hashString;
-    }
 }

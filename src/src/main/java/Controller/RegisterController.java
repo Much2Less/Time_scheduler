@@ -17,7 +17,7 @@ import java.sql.*;
 import java.util.Objects;
 
 /**
- * This class controls the registration of users
+ * This class controls the registration of users.
  * It also checks if the Input data is legal for upload
  * If the registration is canceled you will be switched back to the login screen
  */

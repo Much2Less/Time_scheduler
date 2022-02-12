@@ -23,7 +23,7 @@ import Object.*;
 import static javafx.fxml.FXMLLoader.load;
 
 /**
- * This class is for login to the application
+ * This class controls the login screen
  */
 
 public class

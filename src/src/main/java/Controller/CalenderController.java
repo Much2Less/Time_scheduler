@@ -37,7 +37,7 @@ Participants:
  */
 
 /**
- * This class is for creating appointments and to save them in database
+ * This class controls the create appointment screen
  */
 
 public class CalenderController implements Initializable {
@@ -68,7 +68,7 @@ public class CalenderController implements Initializable {
     @FXML
     private TextField reminder;
     @FXML
-    private TextField eventort;
+    private TextField location;
     @FXML
     private ChoiceBox<String> priority;
     @FXML
@@ -81,11 +81,9 @@ public class CalenderController implements Initializable {
     private final String[] option2 = {"1 Week","3 Days","1 Hour","10 Minutes"};
 
 
-    public CalenderController() {
-    }
 
     /**
-     * This method is creates an appointment object by using the input of inside the TextField and uploads the data to the database
+     * This method is creates an appointment object by using the input inside the TextField and uploads the data to the database
      */
 
     public void creatAppointment(ActionEvent actionEvent) throws IOException, SQLException {
@@ -95,7 +93,7 @@ public class CalenderController implements Initializable {
         String minutesAppointment = minutes.getText();
         String durationHourAppointment = durationHour.getText();
         String durationMinutesAppointment = durationMinutes.getText();
-        String locationAppointment = eventort.getText();
+        String locationAppointment = location.getText();
         String listParticipantsAppointment = listParticipants.getText();
         String priorityAppointment = priority.getValue();
         String reminderAppointment = reminderbox.getValue();
@@ -126,7 +124,7 @@ public class CalenderController implements Initializable {
     }
 
     /**
-     * This method is to switches the scene back to the Option Menu
+     * This method sends you back to the Option Menu
      */
 
     @FXML
@@ -139,6 +137,9 @@ public class CalenderController implements Initializable {
         stage.show();
     }
 
+    /**
+     * initializes the screen
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         priority.getItems().addAll(option);

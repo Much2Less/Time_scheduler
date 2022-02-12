@@ -1,5 +1,8 @@
 package Object;
 
+/**
+ * Class for storing the data of a user
+ */
 public class User {
     private int id;
     private String username;
@@ -7,6 +10,14 @@ public class User {
     private String password;
     private int admin;
 
+    /**
+     * Creates a new object user
+     * @param id primary key of the mysql database
+     * @param username username of user
+     * @param email email address of user
+     * @param password hashed password of the user
+     * @param admin admin flag of every user. If 1, then this user is an admin.
+     */
     public User(int id, String username, String email, String password, int admin) {
         this.id = id;
         this.email = email;

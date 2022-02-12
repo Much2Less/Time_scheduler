@@ -4,6 +4,9 @@ import javafx.scene.control.DatePicker;
 
 import java.sql.Date;
 
+/**
+ * This class stores every information about an appointment
+ */
 public class Appointment {
     private int id;
     private String name;
@@ -18,8 +21,20 @@ public class Appointment {
     private String reminder;
 
 
-
-
+    /**
+     * Creates an Appointment
+     * @param id primary key of the mysql databse
+     * @param name name of the appointment
+     * @param date date of the appointment
+     * @param start starting time of the appointment in hours
+     * @param startminutes starting time of the appointment in minutes
+     * @param end ending time of the appointment in hours
+     * @param endminutes ending time of the appointment in minutes
+     * @param location location of the appointment
+     * @param participants a string of participating people
+     * @param priority priority of an appointment
+     * @param reminder point in time in which the email reminder should be sent
+     */
     public Appointment(int id, String name, Date date, int start, int startminutes, int end, int endminutes, String location, String participants, String priority, String reminder) {
         this.id = id;
         this.name = name;
@@ -29,13 +44,6 @@ public class Appointment {
         this.location = location;
         this.participants = participants;
         this.priority = priority;
-        this.reminder = reminder;
-    }
-
-    public Appointment(String name, Date date, String participants, String reminder) {
-        this.name = name;
-        this.date = date;
-        this.participants = participants;
         this.reminder = reminder;
     }
 

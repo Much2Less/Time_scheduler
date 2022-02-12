@@ -29,7 +29,6 @@ import javax.swing.text.Document;
 /**
  * This class is for editing and deleting appointments from database
  */
-
 public class EditDeleteScreen implements Initializable {
 
     private Stage stage;
@@ -181,6 +180,9 @@ public class EditDeleteScreen implements Initializable {
     }
 
     //TODO
+    /**
+     * Opens a new window in which you can edit the data of the selected appointment
+     */
     public void editAppointment() {
         if (appointmentListView.getSelectionModel().isEmpty()) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
