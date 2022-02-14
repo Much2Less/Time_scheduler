@@ -1,29 +1,31 @@
 package Controller;
 
-import Object.*;
-
+import Object.DBData;
+import Object.HashedPassword;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+/**
+ * This class controls the registration of users.
+ * It also checks if the Input data is legal for upload
+ * If the registration is canceled you will be switched back to the login screen
+ */
 
 public class RegisterController {
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
-    static final String USER = "root";
-    static final String PASS = "1234qwer";
+    static final String USER = DBData.getDBUser();
+    static final String PASS = DBData.getDBPassword();
     static final String QUERY = "INSERT INTO login (username,email,password,admin) VALUES (?, ?, ?, 0)";
 
     @FXML
@@ -32,99 +34,165 @@ public class RegisterController {
     private TextField emailRegister;
     @FXML
     private TextField passwordRegister;
-    @FXML
-    private Label errorBoxRegister;
 
-    private String username;
-    private String email;
-    private String password;
+    private final StringBuilder error = new StringBuilder();
 
-    private StringBuilder error = new StringBuilder();
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    /**
+     * This method is for switching the screen to login after clicking register button
+     */
 
     public void switchToLogin(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login.fxml")));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("SignUp");
-        scene = new Scene(root);
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void registerUser(javafx.event.ActionEvent actionEvent) throws IOException,  NoSuchAlgorithmException {
-        username = usernameRegister.getText();
-        email = emailRegister.getText();
-        password = passwordRegister.getText();
-
-        /*
-        if(checkRegisterData(username, email, password)) {
-            errorBoxRegister.setText("");
-            errorBoxRegister.setText(error.toString());
-        }
-         */
-
-        HashedPassword hashedPassword = new HashedPassword(password);
-        String hash = hashedPassword.getHashString();
-
-
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement(QUERY)
-        ) {
-            stmt.setString(1, username);
-            stmt.setString(2, email);
-            stmt.setString(3, hash);
-
-            stmt.executeUpdate();
-
-            System.out.println("Success!");
-            switchToLogin(actionEvent);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
-        //TODO implement an exception if the username or email is already existing in the database
-
-    }
-
-    //TODO checkRegisterData: Should check if Username is not too long, E-Mail has correct format and Password is strong enough
-    //The Method should also build a String with all errors that occured when registering
-    /*
-        Example:
-        Username too short
-        Not a real E-Mail
-        Password has no numbers
+    /**
+     * This method gets the input of the TextField and uploads it to the database
+     * It also uses isValidData() to check if the input is legal
+     * @param actionEvent to change the screen by clicking a button
      */
-/*
 
-    private boolean checkRegisterData(String username, String email, String password) {
-        boolean return_val = false;
+    public void registerUser(javafx.event.ActionEvent actionEvent) throws IOException, NoSuchAlgorithmException {
+        String username = usernameRegister.getText();
+        String email = emailRegister.getText();
+        String password = passwordRegister.getText();
 
-        if (username.length() < 4) {
-            return_val = true;
-            error.append("Username is too short!\n");
+        System.out.println(isValidData(username, email, password));
+
+        if(isValidData(username, email, password)) {
+            if (!checkUser(email)) {
+                HashedPassword hashedPassword = new HashedPassword(password);
+                String hash = hashedPassword.getHashString();
+
+
+                try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+                     PreparedStatement stmt = conn.prepareStatement(QUERY)
+                ) {
+                    stmt.setString(1, username);
+                    stmt.setString(2, email);
+                    stmt.setString(3, hash);
+
+                    stmt.executeUpdate();
+
+                    System.out.println("Success!");
+                    switchToLogin(actionEvent);
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
-        if (username.length() >= 100) {
-            return_val = true;
-            error.append("Username is too long!\n");
-        }
-
-        Pattern p = Pattern.compile("[^a-z0-9]", Pattern.CASE_INSENSITIVE);
-        Matcher m = p.matcher(username);
-        boolean res = m.find();
-        if (res) {
-            return_val = true;
-            error.append("Username has special characters!\n");
-        }
-
-
-
-        return return_val;
     }
 
+    /**
+     * This method checks if the user is already registered
+     * @param email email address of the user who wants to register
+     * @return boolean true if user is already registered
+     */
+
+    public boolean checkUser(String email) {
+        boolean usernameExists = false;
+
+        try
+        {
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            PreparedStatement stmt = conn.prepareStatement("select * from login where email = ? ");
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            String usernameCounter;
+            if(rs.next())
+            {
+                usernameCounter = rs.getString("email");
+                if(usernameCounter.equals(email))
+                {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setHeaderText("ERROR");
+                    errorAlert.setContentText("E-Mail already exists!");
+                    errorAlert.showAndWait();
+                    usernameExists = true;
+
+                    usernameRegister.clear();
+                    emailRegister.clear();
+                    passwordRegister.clear();
+                }
+
+            }
+        }
+        catch (SQLException e)
+        {
+            System.out.println("SQL Exception: "+ e);
+        }
+
+        return usernameExists;
+    }
+
+    /**
+     * This method is for checking if the input from the user is legal after our own standards
+     * It checks if the username is at least 5 characters long, not longer than 29 characters and doesn't include special characters
+     * It checks if the email is in the correct format
+     * It checks if the password contains at least one special character and no white spaces
+     * Finally if an input is illegal, an alert appears which prints all broken rules
+     * @param username chose username of user
+     * @param email chose email of user
+     * @param password chose password from user
+     * @return returns false if username, email or password is illegal
+     */
+
+    private boolean isValidData(String username, String email, String password) {
+        boolean validData = true;
+
+        String regex1 = "^[A-Za-z0-9]{5,29}$";
+        String regex2 = "^(.+)@(.+)$";
+        String regex3 = "^(?=.*[0-9])" //at least one digit/lower and upper case alphabet must occur
+                + "(?=.*[a-z])(?=.*[A-Z])" // special character at least once, white spaces not allowed
+                + "(?=.*[@#$%^&+=.])"
+                + "(?=\\S+$).{6,20}$";
+
+        StringBuilder errorMsg = new StringBuilder();
+
+        if(!username.matches(regex1)) {
+            errorMsg.append("Invalid username\n");
+
+            usernameRegister.clear();
+            emailRegister.clear();
+            passwordRegister.clear();
+            validData = false;
+        }
+        if(!email.matches(regex2)){
+            errorMsg.append("Invalid email\n");
+
+            usernameRegister.clear();
+            emailRegister.clear();
+            passwordRegister.clear();
+            validData = false;
+
+        }
+/*
+        if(!password.matches(regex3)) {
+            errorMsg.append("Password has no correct form (At least one upper and lowercase alphabet, one special character and between 6-20 characters");
+
+            usernameRegister.clear();
+            emailRegister.clear();
+            passwordRegister.clear();
+            validData = false;
+
+        }
 */
+
+        if(!validData) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("ERROR");
+            errorAlert.setContentText(errorMsg.toString());
+            errorAlert.showAndWait();
+
+        }
+
+        return validData;
+    }
 }
