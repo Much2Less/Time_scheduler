@@ -89,8 +89,9 @@ public class optionController {
     public void exportPdf() throws FileNotFoundException, DocumentException {
 
         Document document = new Document();
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\Roger\\Desktop\\Appointments.pdf"));
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\Anil Aksu\\Desktop\\Appointments.pdf"));
         document.open();
+        document.add(new Paragraph("Appointments"));
         document.add(new Chunk(" "));
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
