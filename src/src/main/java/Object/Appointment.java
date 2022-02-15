@@ -29,8 +29,8 @@ public class Appointment {
      * @param date date of the appointment
      * @param start starting time of the appointment in hours
      * @param startminutes starting time of the appointment in minutes
-     * @param end ending time of the appointment in hours
-     * @param endminutes ending time of the appointment in minutes
+     * @param end Duration time in hours of the appointment in hours
+     * @param endminutes  Duration time in minutes of the appointment in minutes
      * @param location location of the appointment
      * @param participants a string of participating people
      * @param priority priority of an appointment
@@ -40,7 +40,9 @@ public class Appointment {
         this.id = id;
         this.name = name;
         this.date = date;
-        this.start = startminutes;
+        this.start = start;
+        this.startminutes = startminutes;
+        this.end = end;
         this.endminutes = endminutes;
         this.location = location;
         this.participants = participants;

@@ -112,7 +112,7 @@ LoginController extends Application {
 
 					Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("optionMenu.fxml")));
 					stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-					stage.setTitle("Welcome to Time Scheduler");
+					stage.setTitle("Welcome to Time Scheduler "+currentUser.getUsername());
 					scene = new Scene(root);
 					stage.setScene(scene);
 					stage.show();
@@ -138,6 +138,7 @@ LoginController extends Application {
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("admin.fxml"));
 		Parent root = loader.load();
 		stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+		stage.setTitle("Welcome admin "+currentUser.getUsername());
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();

@@ -32,7 +32,7 @@ public class EditDeleteScreen implements Initializable {
     private Scene scene;
 
     @FXML
-    private Label searchText;
+    private Label showusername;
     @FXML
     private ListView<String> appointmentListView;
     @FXML
@@ -50,6 +50,7 @@ public class EditDeleteScreen implements Initializable {
 
     public User currentUser = LoginController.currentUser;
 
+
     /**
      * Queries for database actions
      */
@@ -66,18 +67,19 @@ public class EditDeleteScreen implements Initializable {
     public void switchToOptions(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(this.getClass().getResource("optionMenu.fxml")));
         this.stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        this.stage.setTitle("Welcome to Time Scheduler");
+        this.stage.setTitle("Welcome to Time Scheduler"+currentUser.getUsername());
         this.scene = new Scene(root);
         this.stage.setScene(this.scene);
         this.stage.show();
     }
-
+    public void displayName(String username){
+        showusername.setText("All the Appointments from: "+currentUser.getUsername());
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         selectFromAppointment();
-
-
+        displayName(currentUser.getUsername());
     }
 
     /**
@@ -86,6 +88,7 @@ public class EditDeleteScreen implements Initializable {
      * It then constructs a string for every appointment and adds it to the ListView.
      * To be able to select a appointment from the ListView, the method also creates an EventHandler.
      */
+
 
     public void selectFromAppointment() {
 
@@ -116,14 +119,17 @@ public class EditDeleteScreen implements Initializable {
             }
 
 
-            //Builds a string with information from every user Appointment
+            //Builds a string with information from that specific user Appointment
             for (Appointment appointment : appointmentArrayList) {
                 appointmentListView.getItems().add(
-                        appointment.getName() + " "
-                                + appointment.getDate() + " "
-                                + appointment.getParticipants() + " "
+                        appointment.getName() + " Date: "
+                                + appointment.getDate() + "Participants: "
+                                + appointment.getParticipants() + "Starts at: "
+                                +appointment.getStart() +":"
+                                +appointment.getStartminutes()+" uhr Reminder "
                                 + appointment.getReminder());
             }
+
 
             appointmentListView.setOnMouseClicked(event -> {
                 selectedAppointment = appointmentArrayList.get(appointmentListView.getSelectionModel().getSelectedIndex());
@@ -182,7 +188,7 @@ public class EditDeleteScreen implements Initializable {
                 errorAlert.showAndWait();
             } else {
                 Dialog<EditDeleteScreen> editDeleteScreenDialog = new Dialog<>();
-                editDeleteScreenDialog.setTitle("Editing Appointment " + selectedAppointment.getName());
+                editDeleteScreenDialog.setTitle("Editing Appointment: " + selectedAppointment.getName());
 
                 editDeleteScreenDialog.setHeaderText("Edit the Appointment: " + selectedAppointment.getName());
 
@@ -190,8 +196,8 @@ public class EditDeleteScreen implements Initializable {
                 Label Date = new Label("Date: ");
                 Label startLabel = new Label("StartHour: ");
                 Label startminutesLabel = new Label("StartMinutes: ");
-                Label endLabel = new Label("EndHour: ");
-                Label endminutesLabel = new Label("EndMinutes: ");
+                Label endLabel = new Label("Duration Hour: ");
+                Label endminutesLabel = new Label("Duration Minutes: ");
                 Label locationLabel = new Label("Location: ");
                 Label ParticipantsLabel = new Label("Participants: ");
                 Label PriorityLabel = new Label("Priority:");
@@ -206,16 +212,16 @@ public class EditDeleteScreen implements Initializable {
                 TextField locationField = new TextField();
                 TextField ParticipantsField = new TextField();
                 ChoiceBox PriorityField = new ChoiceBox();
+
                 PriorityField.getItems().add("High");
                 PriorityField.getItems().add("Medium");
                 PriorityField.getItems().add("Low");
+
                 ChoiceBox ReminderField = new ChoiceBox();
                 ReminderField.getItems().add("1 Week");
                 ReminderField.getItems().add("3 Days");
                 ReminderField.getItems().add("1 Hour");
                 ReminderField.getItems().add("10 Minutes");
-
-
 
 
                 GridPane gridPane = new GridPane();
@@ -289,8 +295,9 @@ public class EditDeleteScreen implements Initializable {
                                 appointmentArrayList.get(selectedAppointmentIndex).setParticipants(ParticipantsField.getText());
                                 appointmentArrayList.get(selectedAppointmentIndex).setReminder(String.valueOf(PriorityField.getValue()));
                                 appointmentArrayList.get(selectedAppointmentIndex).setReminder(String.valueOf(ReminderField.getValue()));
-                                appointmentListView.getItems().set(selectedAppointmentIndex, AppointmentField.getText());
-                                appointmentListView.getItems().set(selectedAppointmentIndex, String.valueOf(DateField.getValue()));
+                                appointmentListView.getItems().set(selectedAppointmentIndex, AppointmentField.getText()+String.valueOf(DateField.getValue())+startField.getText()+startminutesField.getText()+endField.getText()
+                                        +endminutesField.getText()+locationField.getText()+ParticipantsField.getText()+String.valueOf(PriorityField.getValue())+String.valueOf(ReminderField.getValue()));
+                               /* appointmentListView.getItems().set(selectedAppointmentIndex, String.valueOf(DateField.getValue()));
                                 appointmentListView.getItems().set(selectedAppointmentIndex, startField.getText());
                                 appointmentListView.getItems().set(selectedAppointmentIndex, startminutesField.getText());
                                 appointmentListView.getItems().set(selectedAppointmentIndex, endField.getText());
@@ -299,6 +306,8 @@ public class EditDeleteScreen implements Initializable {
                                 appointmentListView.getItems().set(selectedAppointmentIndex, ParticipantsField.getText());
                                 appointmentListView.getItems().set(selectedAppointmentIndex, String.valueOf(PriorityField.getValue()));
                                 appointmentListView.getItems().set(selectedAppointmentIndex, String.valueOf(ReminderField.getValue()));
+
+                                */
                             } catch (SQLException throwable) {
                                 throwable.printStackTrace();
                             }
