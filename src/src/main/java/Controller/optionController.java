@@ -89,8 +89,9 @@ public class optionController {
     public void exportPdf() throws FileNotFoundException, DocumentException {
 
         Document document = new Document();
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\Anil Aksu\\Desktop\\Test.pdf"));
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\Anil Aksu\\Desktop\\Appointments.pdf"));
         document.open();
+        document.add(new Paragraph("Appointments"));
         document.add(new Chunk(" "));
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -110,7 +111,16 @@ public class optionController {
                 String participants = rs.getString("participants");
                 String priority = rs.getString("priority");
                 String reminder = rs.getString("reminder");
-                Paragraph paragraph = new Paragraph(" "+userid+ " "+name+ " "+date+ " "+start+ " "+startminutes+ " "+end+ " "+endminutes+ " "+location+ " "+participants+ " "+priority+ " "+reminder);
+                Paragraph paragraph = new Paragraph(
+                        "  userID: "+userid+ "\n"
+                        +"  title: "+name+ "\n"
+                        + "  date: "+date+ "\n"
+                        +"  starttime: "+start+ ":"+startminutes+ "\n"
+                        +"  endtime: "+end+ ":"+endminutes+ "\n"
+                        +"  Location: "+location+ "\n"
+                        +"  participants: "+participants+"\n"
+                        + "  priority: "+priority+ "\n"
+                        +"  reminder: "+reminder);
                 document.add(paragraph);
                 document.add(new Paragraph(" "));
                 System.out.println("Opening Document");
