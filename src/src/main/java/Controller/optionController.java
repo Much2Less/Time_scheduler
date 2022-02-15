@@ -3,9 +3,10 @@ package Controller;
 import Object.Appointment;
 import Object.DBData;
 import Object.User;
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -88,41 +89,16 @@ public class optionController {
     public void exportPdf() throws FileNotFoundException, DocumentException {
 
         Document document = new Document();
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\Anil Aksu\\Desktop\\Test.pdf"));
-        PdfPTable table = new PdfPTable(new float[] { 2, 1, 2 });
-        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\Roger\\Desktop\\Appointments.pdf"));
         document.open();
-        System.out.println("Opening Document");
-        document.add(new Chunk("Appointments"));
-        document.add(new Paragraph(" "));
+        document.add(new Chunk(" "));
 
-    /*    table.addCell("ID");
-        table.addCell("Name");
-        table.addCell("Date");
-        table.addCell("Start");
-        table.addCell("Startminutes");
-        table.addCell("End");
-        table.addCell("Endminutes");
-        table.addCell("Location");
-        table.addCell("Participants");
-        table.addCell("Priority");
-        table.addCell("Reminder");
-
-        table.setHeaderRows(1);
-        PdfPCell[] cells = table.getRow(0).getCells();
-        for (int j=0;j<cells.length;j++){
-            cells[j].setBackgroundColor(BaseColor.GRAY);
-            System.out.println(j);
-        }
-        document.add(table);
-    */
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement stmt = conn.prepareStatement(SELECT_APPOINTMENT)) {
             stmt.setInt(1, currentUser.getId());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-
+                //" "+rs.getInt("id")+ " "+rs.getString("name")+ " "+Date.valueOf(rs.getString("date")+ " "+rs.getInt("start")+ " "+rs.getInt("startminutes")+ " "+rs.getInt("end")+ " "+rs.getInt("endminutes")+ " "+rs.getString("location")+ " "+rs.getString("participants")+ " "+rs.getString("priority")+ " "+rs.getString("reminder")
                 int userid = rs.getInt("userid");
                 String name = rs.getString("name");
                 Date date = Date.valueOf(rs.getString("date"));
@@ -134,10 +110,19 @@ public class optionController {
                 String participants = rs.getString("participants");
                 String priority = rs.getString("priority");
                 String reminder = rs.getString("reminder");
-                Paragraph paragraph = new Paragraph("ID: "+userid+ " Name: "+name+ " Date: "+date+ " At: "+start+ ":"+startminutes+ " o´clock End: "+end+ ":"+endminutes+ " o´clock Location: "+location+ " Participants: "+participants+ " Priority: "+priority+ " Reminder: "+reminder);
+                Paragraph paragraph = new Paragraph(
+                        "  userID: "+userid+ "\n"
+                        +"  title: "+name+ "\n"
+                        + "  date: "+date+ "\n"
+                        +"  starttime: "+start+ ":"+startminutes+ "\n"
+                        +"  endtime: "+end+ ":"+endminutes+ "\n"
+                        +"  Location: "+location+ "\n"
+                        +"  participants: "+participants+"\n"
+                        + "  priority: "+priority+ "\n"
+                        +"  reminder: "+reminder);
                 document.add(paragraph);
                 document.add(new Paragraph(" "));
-                System.out.println("Writing Appointment into Document");
+                System.out.println("Opening Document");
                 Appointment a = new Appointment(
                         userid,
                         name,
@@ -156,7 +141,7 @@ public class optionController {
             }
 
             document.close();
-            System.out.println("Document closed");
+            System.out.println("Finished");
 
 
         } catch (SQLException | DocumentException e) {

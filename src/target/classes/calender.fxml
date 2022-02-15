@@ -94,7 +94,7 @@
             <Font size="14.0"/>
          </font>
       </Label>
-      <TextField fx:id="eventort" layoutX="30.0" layoutY="496.0" prefHeight="26.0" prefWidth="305.0"/>
+      <TextField fx:id="location" layoutX="30.0" layoutY="496.0" prefHeight="26.0" prefWidth="305.0"/>
       <Separator layoutX="392.0" layoutY="1.0" orientation="VERTICAL" prefHeight="685.0" prefWidth="6.0"
                  style="-fx-background-color: #000000;"/>
       <Button fx:id="cancelButton" layoutX="99.0" layoutY="556.0" mnemonicParsing="false" onAction="#switchToOptionMenu"
