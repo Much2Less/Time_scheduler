@@ -3,9 +3,9 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/src/src/main/java/Controller/AdminController.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/src/main/java/Controller/CalenderController.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/src/main/java/Controller/EditDeleteScreen.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/src/main/java/Controller/LoginController.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/src/main/java/Controller/RegisterController.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/src/main/java/Controller/optionController.java" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/src/main/java/EditDeleteScreen.java" dialect="GenericSQL" />
   </component>
 </project>

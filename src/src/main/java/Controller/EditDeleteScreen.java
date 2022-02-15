@@ -1,5 +1,5 @@
-import Controller.AdminController;
-import Controller.LoginController;
+package Controller;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,31 +21,18 @@ import java.util.ResourceBundle;
 
 import Object.*;
 
-import javax.swing.text.Document;
-
 /**
  * This class is for editing and deleting appointments from database
  */
 public class EditDeleteScreen implements Initializable {
 
-    private Stage stage;
-    private Scene scene;
-
-    @FXML
-    private Label searchText;
     @FXML
     private ListView<String> appointmentListView;
-    @FXML
-    private Button SearchButton;
-    @FXML
-    private Button cancelButton;
 
     private final ArrayList<Appointment> appointmentArrayList = new ArrayList<>();
 
     private int selectedAppointmentIndex;
     private Appointment selectedAppointment;
-    private int userid;
-    static private User selectedUser;
 
 
     public User currentUser = LoginController.currentUser;
@@ -64,20 +51,17 @@ public class EditDeleteScreen implements Initializable {
 
 
     public void switchToOptions(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(this.getClass().getResource("optionMenu.fxml")));
-        this.stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        this.stage.setTitle("Welcome to Time Scheduler");
-        this.scene = new Scene(root);
-        this.stage.setScene(this.scene);
-        this.stage.show();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(this.getClass().getClassLoader().getResource("optionMenu.fxml")));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("Welcome to Time Scheduler");
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         selectFromAppointment();
-
-
     }
 
     /**
@@ -111,7 +95,8 @@ public class EditDeleteScreen implements Initializable {
                         rs.getString(8),
                         rs.getString(9),
                         rs.getString(10),
-                        rs.getString(11)
+                        rs.getString(11),
+                        rs.getInt("reminder_sent")
                 ));
             }
 
@@ -281,10 +266,10 @@ public class EditDeleteScreen implements Initializable {
                                 //Updates the user Appointments in the current Arraylist with the text field content
                                 appointmentArrayList.get(selectedAppointmentIndex).setName(AppointmentField.getText());
                                 appointmentArrayList.get(selectedAppointmentIndex).setDate(DateField.getValue());
-                                appointmentArrayList.get(selectedAppointmentIndex).setStart(Integer.parseInt(startField.getText()));
-                                appointmentArrayList.get(selectedAppointmentIndex).setStartminutes(Integer.parseInt(startminutesField.getText()));
-                                appointmentArrayList.get(selectedAppointmentIndex).setEnd(Integer.parseInt(endField.getText()));
-                                appointmentArrayList.get(selectedAppointmentIndex).setEndminutes(Integer.parseInt(endminutesField.getText()));
+                                appointmentArrayList.get(selectedAppointmentIndex).setStartHours(Integer.parseInt(startField.getText()));
+                                appointmentArrayList.get(selectedAppointmentIndex).setStartMinutes(Integer.parseInt(startminutesField.getText()));
+                                appointmentArrayList.get(selectedAppointmentIndex).setEndHours(Integer.parseInt(endField.getText()));
+                                appointmentArrayList.get(selectedAppointmentIndex).setEndMinutes(Integer.parseInt(endminutesField.getText()));
                                 appointmentArrayList.get(selectedAppointmentIndex).setLocation(locationField.getText());
                                 appointmentArrayList.get(selectedAppointmentIndex).setParticipants(ParticipantsField.getText());
                                 appointmentArrayList.get(selectedAppointmentIndex).setReminder(String.valueOf(PriorityField.getValue()));

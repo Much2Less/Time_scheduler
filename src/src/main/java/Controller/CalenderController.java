@@ -78,7 +78,7 @@ public class CalenderController implements Initializable {
     private DatePicker dateAppointment;
     //private ChoiceBox reminderboxAppointment;
     private final String[] option = {"High","Medium","Low"};
-    private final String[] option2 = {"1 Week","3 Days","1 Hour","10 Minutes"};
+    private final String[] option2 = {"1 Week","3 Days","1 Hour","10 Minutes","1 Minute"};
 
 
 
