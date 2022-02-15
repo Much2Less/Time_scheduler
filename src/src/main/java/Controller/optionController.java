@@ -118,7 +118,7 @@ public class optionController implements Initializable {
     public void switchToCalender(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("calender.fxml")));
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setTitle("Welcome to Time Scheduler");
+        stage.setTitle("Welcome to Time Scheduler"+currentUser.getUsername());
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -131,7 +131,7 @@ public class optionController implements Initializable {
     public void switchToEditDeleteScreen(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("editDeleteScreen.fxml")));
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setTitle("Edit or Delete your Meetings ");
+        stage.setTitle("Edit or Delete your Meetings "+currentUser.getUsername());
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
