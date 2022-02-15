@@ -5,7 +5,7 @@ package Object;
  */
 public class DBData {
     final static String DBUser = "root";
-    final static String DBPassword = "Passwort123";
+    final static String DBPassword = "Prabin2468";
 
     public DBData() {}
 

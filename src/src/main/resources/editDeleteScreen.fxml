@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="521.0" prefWidth="711.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EditDeleteScreen">
+<AnchorPane prefHeight="521.0" prefWidth="711.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EditDeleteScreen">
     <SplitPane dividerPositions="0.857142857142857" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" style="-fx-background-color: #A865C9;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="170.0" prefWidth="710.0" style="-fx-background-color: #A865C9;">
             <Label layoutX="62.0" layoutY="28.0" prefHeight="32.0" prefWidth="309.0" text="Search your Appointment" />
             <ListView fx:id="appointmentListView" layoutX="37.0" layoutY="68.0" prefHeight="360.0" prefWidth="517.0" />
-            <Button id="editButton" layoutX="566.0" layoutY="68.0" mnemonicParsing="false" style="-fx-background-color: #FFAC00;" text="Edit" />
+            <Button id="editButton" layoutX="566.0" layoutY="68.0" mnemonicParsing="false" onAction="#editAppointment" style="-fx-background-color: #FFAC00;" text="Edit" />
          <Button id="deleteButton" layoutX="629.0" layoutY="68.0" mnemonicParsing="false" onAction="#confirmationEvent" style="-fx-background-color: #CD4C46;" text="Delete" />
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">

@@ -3,6 +3,7 @@ package Object;
 import javafx.scene.control.DatePicker;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * This class stores every information about an appointment
@@ -68,8 +69,8 @@ public class Appointment {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(LocalDate date) {
+        this.date = Date.valueOf(date);
     }
 
     public int getStart() {

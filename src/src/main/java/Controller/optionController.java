@@ -21,6 +21,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static javafx.fxml.FXMLLoader.load;
+
 /**
  * This class is for controlling the option menu.
  * In the option menu you can get to the create or edit/delete appointment screen.
@@ -46,7 +48,7 @@ public class optionController {
      */
 
     public void switchToLogin(javafx.event.ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("login.fxml")));
+        Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("login.fxml")));
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("SignUp");
         scene = new Scene(root);
@@ -59,7 +61,7 @@ public class optionController {
      */
 
     public void switchToCalender(javafx.event.ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("calender.fxml")));
+        Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("calender.fxml")));
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("Welcome to Time Scheduler");
         scene = new Scene(root);
@@ -89,7 +91,7 @@ public class optionController {
     public void exportPdf() throws FileNotFoundException, DocumentException {
 
         Document document = new Document();
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\Anil Aksu\\Desktop\\Appointments.pdf"));
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\User\\Desktop\\Test.pdf"));
         document.open();
         document.add(new Paragraph("Appointments"));
         document.add(new Chunk(" "));

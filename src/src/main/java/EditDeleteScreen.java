@@ -8,12 +8,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -48,6 +45,7 @@ public class EditDeleteScreen implements Initializable {
     private int selectedAppointmentIndex;
     private Appointment selectedAppointment;
     private int userid;
+    static private User selectedUser;
 
 
     public User currentUser = LoginController.currentUser;
@@ -62,10 +60,8 @@ public class EditDeleteScreen implements Initializable {
     //static final String SELECT_APPOINTMENT = "SELECT `name`,`date`,`participants`,`reminder` FROM appointment Where  userid = ?";
     static final String SELECT_APPOINTMENT = "SELECT * FROM appointment Where  userid = ?";
     static final String DELETE_APPOINTMENT = "DELETE FROM appointment WHERE id = ?";
+    static final String EDIT_APPOINTMENT = "UPDATE appointment SET name = ?, date = ?,start = ?, startminutes= ?, end = ?,endminutes= ?,location= ?,participants =?,priority = ?,reminder=?  WHERE id = ?";
 
-    /**
-     * This method sends you to the options screen
-     */
 
     public void switchToOptions(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(this.getClass().getResource("optionMenu.fxml")));
@@ -101,7 +97,7 @@ public class EditDeleteScreen implements Initializable {
             ResultSet rs = stmt.executeQuery();
 
 
-            //Saving Users from the database in an ArrayList
+            //Saving Appointment from the database in an ArrayList
             while (rs.next()) {
 
                 appointmentArrayList.add(new Appointment(
@@ -120,7 +116,7 @@ public class EditDeleteScreen implements Initializable {
             }
 
 
-            //Builds a string with information from every user
+            //Builds a string with information from every user Appointment
             for (Appointment appointment : appointmentArrayList) {
                 appointmentListView.getItems().add(
                         appointment.getName() + " "
@@ -143,6 +139,7 @@ public class EditDeleteScreen implements Initializable {
 
     /**
      * This method is for deleting an appointment from database
+     *
      * @param appointment appointment created before and is stored in database
      */
 
@@ -158,10 +155,6 @@ public class EditDeleteScreen implements Initializable {
         }
 
     }
-
-    /**
-     * Asks if you really want to delete the selected appointment
-     */
 
     public void confirmationEvent() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this Appointment?");
@@ -180,17 +173,150 @@ public class EditDeleteScreen implements Initializable {
     }
 
     //TODO
-    /**
-     * Opens a new window in which you can edit the data of the selected appointment
-     */
+
     public void editAppointment() {
-        if (appointmentListView.getSelectionModel().isEmpty()) {
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("ERROR");
-            errorAlert.setContentText("You have to select an appointment!");
-            errorAlert.showAndWait();
+            if (appointmentListView.getSelectionModel().isEmpty()) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setHeaderText("ERROR");
+                errorAlert.setContentText("You have to select a Appointment!");
+                errorAlert.showAndWait();
+            } else {
+                Dialog<EditDeleteScreen> editDeleteScreenDialog = new Dialog<>();
+                editDeleteScreenDialog.setTitle("Editing Appointment " + selectedAppointment.getName());
+
+                editDeleteScreenDialog.setHeaderText("Edit the Appointment: " + selectedAppointment.getName());
+
+                Label AppointmentLabel = new Label("Appointment name: ");
+                Label Date = new Label("Date: ");
+                Label startLabel = new Label("StartHour: ");
+                Label startminutesLabel = new Label("StartMinutes: ");
+                Label endLabel = new Label("EndHour: ");
+                Label endminutesLabel = new Label("EndMinutes: ");
+                Label locationLabel = new Label("Location: ");
+                Label ParticipantsLabel = new Label("Participants: ");
+                Label PriorityLabel = new Label("Priority:");
+                Label ReminderLabel = new Label("Reminder:");
+
+                TextField AppointmentField = new TextField();
+                DatePicker DateField = new DatePicker();
+                TextField startField = new TextField();
+                TextField startminutesField = new TextField();
+                TextField endField = new TextField();
+                TextField endminutesField = new TextField();
+                TextField locationField = new TextField();
+                TextField ParticipantsField = new TextField();
+                ChoiceBox PriorityField = new ChoiceBox();
+                PriorityField.getItems().add("High");
+                PriorityField.getItems().add("Medium");
+                PriorityField.getItems().add("Low");
+                ChoiceBox ReminderField = new ChoiceBox();
+                ReminderField.getItems().add("1 Week");
+                ReminderField.getItems().add("3 Days");
+                ReminderField.getItems().add("1 Hour");
+                ReminderField.getItems().add("10 Minutes");
+
+
+
+
+                GridPane gridPane = new GridPane();
+                gridPane.add(AppointmentLabel, 1, 1);
+                gridPane.add(AppointmentField, 2, 1);
+                gridPane.add(Date, 1, 2);
+                gridPane.add(DateField, 2, 2);
+                gridPane.add(startLabel, 1, 3);
+                gridPane.add(startField, 2, 3);
+                gridPane.add(startminutesLabel, 1, 4);
+                gridPane.add(startminutesField, 2, 4);
+                gridPane.add(endLabel, 1, 5);
+                gridPane.add(endField, 2, 5);
+                gridPane.add(endminutesLabel, 1, 6);
+                gridPane.add(endminutesField, 2, 6);
+                gridPane.add(locationLabel, 1, 7);
+                gridPane.add(locationField, 2, 7);
+                gridPane.add(ParticipantsLabel, 1, 8);
+                gridPane.add(ParticipantsField, 2, 8);
+                gridPane.add(PriorityLabel, 1, 9);
+                gridPane.add(PriorityField, 2, 9);
+                gridPane.add(ReminderLabel, 1, 10);
+                gridPane.add(ReminderField, 2, 10);
+
+                editDeleteScreenDialog.getDialogPane().setContent(gridPane);
+
+                ButtonType buttonTypeOk = new ButtonType("Okay", ButtonBar.ButtonData.OK_DONE);
+                editDeleteScreenDialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+                editDeleteScreenDialog.setResultConverter(param -> {
+                    if (param == buttonTypeOk) {
+                        if (
+                            //Checks if Fields are not empty
+                                !(
+                                        AppointmentField.getText() == null ||
+                                                DateField.getValue() == null ||
+                                                startField.getText() == null ||
+                                                startminutesField.getText() == null ||
+                                                endField.getText() == null ||
+                                                endminutesField.getText() == null ||
+                                                locationField.getText() == null ||
+                                                ParticipantsField.getText() == null ||
+                                                PriorityField.getValue() == null ||
+                                                ReminderField.getValue() == null
+
+                                )
+                        ) {
+                            try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+                                 PreparedStatement stmt = conn.prepareStatement(EDIT_APPOINTMENT)
+                            ) {
+                                stmt.setString(1, AppointmentField.getText());
+                                stmt.setString(2, String.valueOf(DateField.getValue()));
+                                stmt.setString(3, startField.getText());
+                                stmt.setString(4, startminutesField.getText());
+                                stmt.setString(5, endField.getText());
+                                stmt.setString(6, endminutesField.getText());
+                                stmt.setString(7, locationField.getText());
+                                stmt.setString(8, ParticipantsField.getText());
+                                stmt.setString(9, String.valueOf(PriorityField.getValue()));
+                                stmt.setString(10, String.valueOf(ReminderField.getValue()));
+                                stmt.setInt(11, selectedAppointment.getId());
+                                stmt.executeUpdate();
+
+                                //Updates the user Appointments in the current Arraylist with the text field content
+                                appointmentArrayList.get(selectedAppointmentIndex).setName(AppointmentField.getText());
+                                appointmentArrayList.get(selectedAppointmentIndex).setDate(DateField.getValue());
+                                appointmentArrayList.get(selectedAppointmentIndex).setStart(Integer.parseInt(startField.getText()));
+                                appointmentArrayList.get(selectedAppointmentIndex).setStartminutes(Integer.parseInt(startminutesField.getText()));
+                                appointmentArrayList.get(selectedAppointmentIndex).setEnd(Integer.parseInt(endField.getText()));
+                                appointmentArrayList.get(selectedAppointmentIndex).setEndminutes(Integer.parseInt(endminutesField.getText()));
+                                appointmentArrayList.get(selectedAppointmentIndex).setLocation(locationField.getText());
+                                appointmentArrayList.get(selectedAppointmentIndex).setParticipants(ParticipantsField.getText());
+                                appointmentArrayList.get(selectedAppointmentIndex).setReminder(String.valueOf(PriorityField.getValue()));
+                                appointmentArrayList.get(selectedAppointmentIndex).setReminder(String.valueOf(ReminderField.getValue()));
+                                appointmentListView.getItems().set(selectedAppointmentIndex, AppointmentField.getText());
+                                appointmentListView.getItems().set(selectedAppointmentIndex, String.valueOf(DateField.getValue()));
+                                appointmentListView.getItems().set(selectedAppointmentIndex, startField.getText());
+                                appointmentListView.getItems().set(selectedAppointmentIndex, startminutesField.getText());
+                                appointmentListView.getItems().set(selectedAppointmentIndex, endField.getText());
+                                appointmentListView.getItems().set(selectedAppointmentIndex, endminutesField.getText());
+                                appointmentListView.getItems().set(selectedAppointmentIndex, locationField.getText());
+                                appointmentListView.getItems().set(selectedAppointmentIndex, ParticipantsField.getText());
+                                appointmentListView.getItems().set(selectedAppointmentIndex, String.valueOf(PriorityField.getValue()));
+                                appointmentListView.getItems().set(selectedAppointmentIndex, String.valueOf(ReminderField.getValue()));
+                            } catch (SQLException throwable) {
+                                throwable.printStackTrace();
+                            }
+                        }
+                    }
+                    return null;
+
+
+                });
+
+                Optional<EditDeleteScreen> result = editDeleteScreenDialog.showAndWait();
+                result.ifPresent(System.out::println);
+            }
+
+
         }
-
-
     }
-}
+
+
+
+
