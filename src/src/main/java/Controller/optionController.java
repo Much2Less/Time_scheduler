@@ -3,6 +3,7 @@ package Controller;
 import Object.Appointment;
 import Object.DBData;
 import Object.User;
+import Object.Sender;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -14,9 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -27,8 +25,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static Controller.LoginController.currentUser;
-import static Controller.optionController.*;
 import static javafx.fxml.FXMLLoader.load;
 
 /**
@@ -221,66 +217,3 @@ public class optionController implements Initializable {
     }
 }
 
-class Sender extends TimerTask {
-
-    private static final String TURN_OFF_REMINDER = "UPDATE appointment SET reminder_sent = 1 WHERE id = ?";
-    private final Appointment appointment;
-
-    public Sender(Appointment appointment) {
-        this.appointment = appointment;
-    }
-
-    public void run() {
-
-        //If appointment has not already set a reminder, then send a reminder
-        if (!appointment.isReminder_sent()) {
-
-            String recipient = currentUser.getEmail();
-            String sender = "anonymerrotertyp@gmail.com";
-            String password = "Emfm1912,";
-
-            Properties props = new Properties();
-            props.put("mail.smtp.host", "smtp.gmail.com");
-            props.put("mail.smtp.socketFactory.port", "465");
-            props.put("mail.smtp.socketFactory.class",
-                    "javax.net.ssl.SSLSocketFactory");
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.port", "465");
-            //get Session
-            Session session = Session.getDefaultInstance(props,
-                    new javax.mail.Authenticator() {
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(sender,password);
-                        }
-                    });
-            try {
-                MimeMessage message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(sender));
-                message.addRecipients(Message.RecipientType.TO, recipient);
-                message.setSubject("Reminder of your appointment");
-                //message.setText("This is just a test!");
-                message.setText("Hi, " + currentUser.getUsername() + "\n" +
-                        "This is a friendly reminder that your appointment is due soon \n" +
-                        "Here you have all the Information about the appointment:\n" +
-                        "Name: " + appointment.getName() + "\n" +
-                        "Date and Starting Time: " + appointment.getDate() + " " + appointment.getStartTimeFormatted() + "\n" +
-                        "Duration: " + appointment.getEndTimeFormatted() + "\n" +
-                        "Location: " + appointment.getLocation() + "\n" +
-                        "Participants: " + appointment.getParticipants() + "\n" +
-                        "Priority: " + appointment.getPriority() + "\n" +
-                        "Reminder: " + appointment.getReminder());
-                Transport.send(message);
-                System.out.println("Mail successfully sent");
-
-                    try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-                         PreparedStatement stmt = conn.prepareStatement(TURN_OFF_REMINDER)) {
-                        stmt.setInt(1, appointment.getId());
-                        stmt.executeUpdate();
-                }
-
-            } catch (MessagingException | SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-}

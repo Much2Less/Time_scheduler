@@ -14,12 +14,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.sql.Date;
+import java.util.*;
 
 import Object.*;
+
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+import static Controller.LoginController.currentUser;
 
 /**
  * This class is for editing and deleting appointments from database
@@ -54,6 +58,7 @@ public class EditDeleteScreen implements Initializable {
     static final String SELECT_APPOINTMENT = "SELECT * FROM appointment Where  userid = ?";
     static final String DELETE_APPOINTMENT = "DELETE FROM appointment WHERE id = ?";
     static final String EDIT_APPOINTMENT = "UPDATE appointment SET name = ?, date = ?,start = ?, startminutes= ?, end = ?,endminutes= ?,location= ?,participants =?,priority = ?,reminder=?  WHERE id = ?";
+    static final String TURN_OFF_REMINDER = "UPDATE appointment SET reminder_sent = 1 WHERE id = ?";
 
 
     public void switchToOptions(ActionEvent actionEvent) throws IOException {
@@ -64,13 +69,13 @@ public class EditDeleteScreen implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    public void displayName(String username){
+    public void displayName(){
         showusername.setText("All the Appointments from: "+currentUser.getUsername());
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         selectFromAppointment();
-        displayName(currentUser.getUsername());
+        displayName();
 
         appointmentListView.setOnMouseClicked(event -> {
             selectedAppointmentIndex = appointmentListView.getSelectionModel().getSelectedIndex();
@@ -166,6 +171,7 @@ public class EditDeleteScreen implements Initializable {
                     deleteAppointment(selectedAppointment);
                     appointmentArrayList.remove(selectedAppointmentIndex);
                     appointmentListView.getItems().remove(selectedAppointmentIndex);
+                    sendDeleteMail(selectedAppointment);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -176,7 +182,85 @@ public class EditDeleteScreen implements Initializable {
         });
     }
 
-    //TODO
+    private void sendEditMail(Appointment appointment) {
+        String recipient = currentUser.getEmail();
+        String sender = "anonymerrotertyp@gmail.com";
+        String password = "Emfm1912,";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+        //get Session
+        Session session = Session.getDefaultInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(sender, password);
+                    }
+                });
+
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(sender));
+            message.addRecipients(Message.RecipientType.TO, recipient);
+            message.setSubject("Reminder of your appointment");
+            message.setText("Hi, " + currentUser.getUsername() + "\n" +
+                    "You edited the appointment"+ appointment.getName() + "\n" +
+                    "Here is the edited appointment! \n" +
+                    "Name: " + appointment.getName() + "\n" +
+                    "Date and Starting Time: " + appointment.getDate() + " " + appointment.getStartTimeFormatted() + "\n" +
+                    "Duration: " + appointment.getEndTimeFormatted() + "\n" +
+                    "Location: " + appointment.getLocation() + "\n" +
+                    "Participants: " + appointment.getParticipants() + "\n" +
+                    "Priority: " + appointment.getPriority() + "\n" +
+                    "Reminder: " + appointment.getReminder());
+            Transport.send(message);
+            System.out.println("Mail successfully sent");
+
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendDeleteMail(Appointment appointment) {
+        String recipient = currentUser.getEmail();
+        String sender = "anonymerrotertyp@gmail.com";
+        String password = "Emfm1912,";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+        //get Session
+        Session session = Session.getDefaultInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(sender, password);
+                    }
+                });
+
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(sender));
+            message.addRecipients(Message.RecipientType.TO, recipient);
+            message.setSubject("Reminder of your appointment");
+            message.setText("Hi, " + currentUser.getUsername() + "\n" +
+                    "You deleted the appointment: "+ appointment.getName() + "\n");
+            Transport.send(message);
+            System.out.println("Mail successfully sent");
+
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void editAppointment() {
             if (appointmentListView.getSelectionModel().isEmpty()) {
@@ -318,6 +402,8 @@ public class EditDeleteScreen implements Initializable {
 
                 Optional<EditDeleteScreen> result = editDeleteScreenDialog.showAndWait();
                 result.ifPresent(System.out::println);
+
+                sendEditMail(appointmentArrayList.get(selectedAppointmentIndex));
             }
 
 
