@@ -46,9 +46,12 @@ public class AdminController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resourceBundle) {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("admin.fxml"));
-
         selectFromLogin();
+
+        userListView.setOnMouseClicked(event -> {
+            selectedUserIndex = userListView.getSelectionModel().getSelectedIndex();
+            selectedUser = userArrayList.get(selectedUserIndex);
+        });
     }
 
     /**
@@ -83,12 +86,6 @@ public class AdminController implements Initializable {
                                 + user.getAdmin() + " "
                                 + user.getPassword());
             }
-
-            userListView.setOnMouseClicked(event -> {
-                selectedUserIndex = userListView.getSelectionModel().getSelectedIndex();
-                selectedUser = userArrayList.get(selectedUserIndex);
-            });
-
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -128,15 +125,22 @@ public class AdminController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this User?");
             alert.show();
             //Handles the confirmation of the Confirmation Prompt
-            alert.setOnCloseRequest(event -> {
+            ButtonType buttonTypeOk = new ButtonType("Okay", ButtonBar.ButtonData.OK_DONE);
+            alert.getDialogPane().getButtonTypes().set(0, buttonTypeOk);
+            alert.setResultConverter(param -> {
+                if (param == buttonTypeOk) {
                         try {
                             deleteUser(selectedUser);
+                            userArrayList.remove(selectedUserIndex);
                             userListView.getItems().remove(selectedUserIndex);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                         System.out.println("delete");
+
                     }
+                        return null;
+                }
             );
         }
     }

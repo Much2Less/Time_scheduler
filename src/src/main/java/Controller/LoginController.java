@@ -100,16 +100,17 @@ LoginController extends Application {
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
+
+				currentUser = new User(
+						rs.getInt(1),
+						rs.getString(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getInt(5)
+				);
+
 				if (rs.getInt(5) > 0) switchToAdmin(actionEvent);
 				else {
-					currentUser = new User(
-							rs.getInt(1),
-							rs.getString(2),
-							rs.getString(3),
-							rs.getString(4),
-							rs.getInt(5)
-							);
-
 					Parent root = load(Objects.requireNonNull(getClass().getClassLoader().getResource("optionMenu.fxml")));
 					stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
 					stage.setTitle("Welcome to Time Scheduler "+currentUser.getUsername());
