@@ -71,6 +71,11 @@ public class EditDeleteScreen implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         selectFromAppointment();
         displayName(currentUser.getUsername());
+
+        appointmentListView.setOnMouseClicked(event -> {
+            selectedAppointmentIndex = appointmentListView.getSelectionModel().getSelectedIndex();
+            selectedAppointment = appointmentArrayList.get(selectedAppointmentIndex);
+        });
     }
 
     /**
@@ -116,16 +121,12 @@ public class EditDeleteScreen implements Initializable {
                         appointment.getName() + " Date: "
                                 + appointment.getDate() + "Participants: "
                                 + appointment.getParticipants() + "Starts at: "
-                                +appointment.getStart() +":"
-                                +appointment.getStartminutes()+" uhr Reminder "
+                                + appointment.getStartHours() +":"
+                                + appointment.getStartMinutes()+" uhr Reminder "
                                 + appointment.getReminder());
             }
 
 
-            appointmentListView.setOnMouseClicked(event -> {
-                selectedAppointment = appointmentArrayList.get(appointmentListView.getSelectionModel().getSelectedIndex());
-                selectedAppointmentIndex = appointmentListView.getSelectionModel().getSelectedIndex();
-            });
 
 
         } catch (SQLException e) {
@@ -157,16 +158,22 @@ public class EditDeleteScreen implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this Appointment?");
         alert.show();
         //Handles the confirmation of the Confirmation Prompt
-        alert.setOnCloseRequest(event -> {
-            try {
-                deleteAppointment(selectedAppointment);
-                appointmentListView.getItems().remove(selectedAppointmentIndex);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            System.out.println("delete");
+        ButtonType buttonTypeOk = new ButtonType("Okay", ButtonBar.ButtonData.OK_DONE);
+        alert.getDialogPane().getButtonTypes().set(0, buttonTypeOk);
+        alert.setResultConverter(param -> {
+            if (param == buttonTypeOk) {
+                try {
+                    deleteAppointment(selectedAppointment);
+                    appointmentArrayList.remove(selectedAppointmentIndex);
+                    appointmentListView.getItems().remove(selectedAppointmentIndex);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-        );
+                System.out.println("delete");
+            }
+
+                return null;
+        });
     }
 
     //TODO
