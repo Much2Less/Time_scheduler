@@ -13,6 +13,9 @@ import java.util.TimerTask;
 import static Controller.LoginController.currentUser;
 import static Controller.optionController.*;
 
+/**
+ * This class sends a reminder email at a specific date and time
+ */
 public class Sender extends TimerTask {
 
     static final String DB_URL = "jdbc:mysql://localhost/time_scheduler";
@@ -26,6 +29,10 @@ public class Sender extends TimerTask {
         this.appointment = appointment;
     }
 
+    /**
+     * Constructs a reminder email and uses a gmail account to send it.
+     * It also changes a value in the database to prevent the same reminder getting spammed
+     */
     public void run() {
 
         String recipient = currentUser.getEmail();
@@ -79,7 +86,4 @@ public class Sender extends TimerTask {
         }
     }
 
-    public void sendReminder() {
-
-    }
 }

@@ -9,8 +9,8 @@ import java.security.NoSuchAlgorithmException;
  */
 public class HashedPassword {
 
-    private byte[] hashEncoded;
-    private String hashString;
+    private final byte[] hashEncoded;
+    private final String hashString;
 
     /**
      * Creates a new HashedPassword Object which stores

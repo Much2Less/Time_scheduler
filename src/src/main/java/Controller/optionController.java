@@ -8,6 +8,7 @@ import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -16,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -23,6 +25,8 @@ import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 import static javafx.fxml.FXMLLoader.load;
@@ -138,13 +142,15 @@ public class optionController implements Initializable {
      * logged on user into a pdf file.
      */
 
-
     public void exportPdf() throws FileNotFoundException, DocumentException {
 
         Document document = new Document();
 
+        LocalDateTime localDateTime = LocalDateTime.now();
+
         //Insert own path
         //PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\User\\Desktop\\Test.pdf"));
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/home/much2less/Desktop/"+currentUser.getUsername()+"-Appointments_"+localDateTime));
 
         document.open();
         document.add(new Paragraph("Appointments"));
@@ -172,6 +178,11 @@ public class optionController implements Initializable {
 
     }
 
+    /**
+     * Sets timers for every possible time which is defined in the reminder field
+     *
+     * @throws ParseException
+     */
     public void setTimer() throws ParseException {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

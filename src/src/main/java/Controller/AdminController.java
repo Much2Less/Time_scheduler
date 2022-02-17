@@ -221,9 +221,13 @@ public class AdminController implements Initializable {
                             userArrayList.get(selectedUserIndex).setUsername(usernameField.getText());
                             userArrayList.get(selectedUserIndex).setEmail(emailField.getText());
                             userArrayList.get(selectedUserIndex).setAdmin(Integer.parseInt(adminField.getText()));
-                            userListView.getItems().set(selectedUserIndex, usernameField.getText());
-                            userListView.getItems().set(selectedUserIndex, emailField.getText());
-                            userListView.getItems().set(selectedUserIndex, adminField.getText());
+
+                                userListView.getItems().set(selectedUserIndex,
+                                                usernameField.getText()+" "
+                                                +emailField.getText()+" "
+                                                +adminField.getText()+" "
+                                        );
+
                         } catch (SQLException throwable) {
                             throwable.printStackTrace();
                         }

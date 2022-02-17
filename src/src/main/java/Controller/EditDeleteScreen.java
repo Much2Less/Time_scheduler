@@ -23,8 +23,6 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import static Controller.LoginController.currentUser;
-
 /**
  * This class is for editing and deleting appointments from database
  */
@@ -123,12 +121,11 @@ public class EditDeleteScreen implements Initializable {
             //Builds a string with information from that specific user Appointment
             for (Appointment appointment : appointmentArrayList) {
                 appointmentListView.getItems().add(
-                        appointment.getName() + " Date: "
-                                + appointment.getDate() + "Participants: "
-                                + appointment.getParticipants() + "Starts at: "
-                                + appointment.getStartHours() +":"
-                                + appointment.getStartMinutes()+" uhr Reminder "
-                                + appointment.getReminder());
+                        appointment.getName()
+                                + " Date: " + appointment.getDate()
+                                + " Participants: " + appointment.getParticipants()
+                                + " Starts at: " + appointment.getStartHours() +":" + appointment.getStartMinutes()+" Uhr"
+                                + " Reminder " + appointment.getReminder());
             }
 
 
@@ -293,13 +290,13 @@ public class EditDeleteScreen implements Initializable {
                 TextField endminutesField = new TextField();
                 TextField locationField = new TextField();
                 TextField ParticipantsField = new TextField();
-                ChoiceBox PriorityField = new ChoiceBox();
+                ChoiceBox<String> PriorityField = new ChoiceBox<String>();
 
                 PriorityField.getItems().add("High");
                 PriorityField.getItems().add("Medium");
                 PriorityField.getItems().add("Low");
 
-                ChoiceBox ReminderField = new ChoiceBox();
+                ChoiceBox<String> ReminderField = new ChoiceBox<>();
                 ReminderField.getItems().add("1 Week");
                 ReminderField.getItems().add("3 Days");
                 ReminderField.getItems().add("1 Hour");
@@ -377,19 +374,12 @@ public class EditDeleteScreen implements Initializable {
                                 appointmentArrayList.get(selectedAppointmentIndex).setParticipants(ParticipantsField.getText());
                                 appointmentArrayList.get(selectedAppointmentIndex).setReminder(String.valueOf(PriorityField.getValue()));
                                 appointmentArrayList.get(selectedAppointmentIndex).setReminder(String.valueOf(ReminderField.getValue()));
-                                appointmentListView.getItems().set(selectedAppointmentIndex, AppointmentField.getText()+String.valueOf(DateField.getValue())+startField.getText()+startminutesField.getText()+endField.getText()
-                                        +endminutesField.getText()+locationField.getText()+ParticipantsField.getText()+String.valueOf(PriorityField.getValue())+String.valueOf(ReminderField.getValue()));
-                               /* appointmentListView.getItems().set(selectedAppointmentIndex, String.valueOf(DateField.getValue()));
-                                appointmentListView.getItems().set(selectedAppointmentIndex, startField.getText());
-                                appointmentListView.getItems().set(selectedAppointmentIndex, startminutesField.getText());
-                                appointmentListView.getItems().set(selectedAppointmentIndex, endField.getText());
-                                appointmentListView.getItems().set(selectedAppointmentIndex, endminutesField.getText());
-                                appointmentListView.getItems().set(selectedAppointmentIndex, locationField.getText());
-                                appointmentListView.getItems().set(selectedAppointmentIndex, ParticipantsField.getText());
-                                appointmentListView.getItems().set(selectedAppointmentIndex, String.valueOf(PriorityField.getValue()));
-                                appointmentListView.getItems().set(selectedAppointmentIndex, String.valueOf(ReminderField.getValue()));
 
-                                */
+                                appointmentListView.getItems().set(selectedAppointmentIndex, AppointmentField.getText()
+                                        + " Date: " + DateField.getValue()
+                                        + " Participants: " + ParticipantsField.getText()
+                                        + " Starts at: " + startField.getText() +":" + startminutesField.getText() +" Uhr" +
+                                        " Reminder " + ReminderField.getValue());
                             } catch (SQLException throwable) {
                                 throwable.printStackTrace();
                             }
